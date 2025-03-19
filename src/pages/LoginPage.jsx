@@ -3,17 +3,23 @@ import rocket from '../assets/loginSvg.svg';
 function LoginPage() {
   return (
     <>
-      <div className="md:flex h-screen p-2 bg-emerald-50 ">
-        <div className="  h-full ">
-          <div className="flex gap-1">
+      <div className="md:flex   h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
+        <div className="flex md:bg-white items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
+          <div className="flex gap-1 absolute top-2 left-2">
             <h1 className="text-4xl font-medium ">Galaxia</h1>
             <h1 className="text-4xl font-medium text-emerald-400 ">Login</h1>
           </div>
 
-          <div className="flex flex-col items-center relative">
-            <img src={rocket} alt="here" width="400" />
-
-            <form className="flex flex-col">
+          <div className="flex flex-col mt-10 md:justify-center   relative">
+            <img src={rocket} alt="here" width="400" className="md:hidden" />
+            <div className=" hidden md:block text-center">
+              <h1 className="text-7xl font-semibold xl:text-8xl">Hi There !</h1>
+              <p className="text-xl xl:text-3xl xl:font-medium">
+                {' '}
+                Welcome to Galaxia
+              </p>
+            </div>
+            <form className="flex flex-col items-center ">
               <div>
                 <label
                   htmlFor="email"
@@ -52,7 +58,7 @@ function LoginPage() {
               </div>
               <button
                 type="submit"
-                className="group/button w-[300px] relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                className="group/button w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
               >
                 <span className="text-lg">Log In</span>
                 <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
@@ -61,7 +67,7 @@ function LoginPage() {
               </button>
               <button
                 type="submit"
-                className="group/button mt-2 w-[300px] relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                className="group/button mt-2 w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
               >
                 <div class="flex items-center">
                   <svg
@@ -79,14 +85,23 @@ function LoginPage() {
                 </div>
               </button>
             </form>
-            <div className="flex gap-1 text-sm mt-2 mb-2 font-light text-gray-500">
+            <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 ">
               <p>Dont have an account yet? </p>
               <a className="text-emerald-400">Register</a>
             </div>
           </div>
         </div>
 
-        <div className="hidden md:visible"></div>
+        <div className="hidden  md:flex md:flex-col md:w-[50vw] md:justify-center md:items-center text-center">
+          <img src={rocket} alt="here" width="400" />
+          <h1 className="text-5xl font-semibold xl:text-7xl">
+            Join the Space{' '}
+          </h1>
+          <p className="text-lg xl:text-2xl  w-[40vw] text-gray-500">
+            {' '}
+            Join the biggest community of the world and connect with them
+          </p>
+        </div>
       </div>
     </>
   );
