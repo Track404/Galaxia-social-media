@@ -1,11 +1,16 @@
 import Navbar from '../components/Navbar';
+import Post from '../components/Post';
 import rocket from '../assets/loginSvg.svg';
 function HomePage() {
+  const items = [1, 2, 3, 4, 5];
   return (
     <div className="flex">
       <Navbar />
-      <div className="w-full">
-        <div className=" flex items-center gap-3 shadow-sm  p-3">
+      <div className="w-full h-screen overflow-auto">
+        <h2 className="p-2 pl-4 border-b-2 bg-gray-50 border-emerald-400 text-2xl font-bold ">
+          Hi Name !
+        </h2>
+        <div className=" flex items-center gap-3 shadow-sm  p-3 ">
           <img
             src={rocket}
             className="border-1 p-1 mb-20 rounded-full hover:border-emerald-400"
@@ -33,31 +38,9 @@ function HomePage() {
             </button>
           </form>
         </div>
-        <div className=" flex items-center gap-3 shadow-xs  p-3">
-          <div className="flex items-start gap-2">
-            <img
-              src={rocket}
-              className="border-1 p-1 mb-20 rounded-full hover:border-emerald-400"
-              width="40"
-              alt=""
-            />
-            <div>
-              <div className="flex flex-col gap-2 ">
-                <div className="flex gap-2">
-                  <h3 className="font-medium">MyName</h3>
-                  <p className="text-gray-400">10h</p>
-                </div>
-
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Ullam aperiam cumque quasi doloremque amet nisi eos saepe,
-                  quidem exercitationem, quibusdam voluptatem sint error nihil
-                  molestiae. Quisquam voluptas illo reiciendis neque!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {items.map((item) => (
+          <Post key={item} />
+        ))}
       </div>
       <div></div>
     </div>
