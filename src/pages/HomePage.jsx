@@ -1,61 +1,38 @@
-import { House } from 'lucide-react';
-import { Mail } from 'lucide-react';
-import { User } from 'lucide-react';
-import { SendHorizonal } from 'lucide-react';
+import Navbar from '../components/Navbar';
 import rocket from '../assets/loginSvg.svg';
 function HomePage() {
   return (
     <div className="flex">
-      <nav className="flex flex-col items-center bg-emerald-50 h-screen p-2 max-w-[20vw] shadow-2xl   ">
-        <div className="flex flex-col items-center md:flex-row  mb-6 ">
-          <h1 className="text-sm  md:text-4xl font-semibold md:block  ">
-            Galaxia
-          </h1>
-
-          <h1 className="text-2xl  md:text-4xl font-medium text-emerald-400 ">
-            Home
-          </h1>
-        </div>
-        <div className="flex flex-col gap-2 ">
-          <House
-            size="35"
-            strokeWidth="1.5"
-            className="hover:text-emerald-400"
-          />
-          <Mail
-            size="35"
-            strokeWidth="1.5"
-            className="hover:text-emerald-400"
-          />
-          <User
-            size="35"
-            strokeWidth="1.5"
-            className="hover:text-emerald-400"
-          />
-          <div className=" group relative ">
-            <button className="mt-5 ">
-              <SendHorizonal
-                size="35"
-                strokeWidth="1.5"
-                className=" transform transition-transform duration-300 hover:scale-125 hover:text-emerald-400 relative"
-              />
-            </button>
-            <span className="absolute bottom-14 left-1/2 transform -translate-x-1/2 z-20 px-4 py-2 text-sm font-bold text-white bg-gray-900 rounded-lg shadow-lg transition-transform duration-300 ease-in-out scale-0 group-hover:scale-100">
-              New Post
-            </span>
-          </div>
-        </div>
-        <div className="absolute bottom-5">
+      <Navbar />
+      <div className="w-full">
+        <div className=" flex items-center gap-3 shadow-sm  p-3">
           <img
             src={rocket}
-            className="border-1 p-1 rounded-full hover:border-emerald-400"
-            width="50"
+            className="border-1 p-1 mb-20 rounded-full hover:border-emerald-400"
+            width="40"
             alt=""
           />
+          <form className="flex flex-col gap-2">
+            <textarea
+              name="post"
+              id="post"
+              rows="3"
+              cols="30"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
+              placeholder="Write something..."
+            ></textarea>
+
+            <button
+              type="submit"
+              className="self-end w-16  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+            >
+              <span className="text-md">Post</span>
+              <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                <div className="relative h-full w-10 bg-white/20"></div>
+              </div>
+            </button>
+          </form>
         </div>
-      </nav>
-      <div>
-        <h1>hi</h1>
       </div>
       <div></div>
     </div>
