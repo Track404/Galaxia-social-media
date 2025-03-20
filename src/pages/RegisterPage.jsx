@@ -1,5 +1,5 @@
 import rocket from '../assets/loginSvg.svg';
-
+import { Link } from 'react-router-dom';
 function RegisterPage() {
   return (
     <>
@@ -107,8 +107,10 @@ function RegisterPage() {
               </button>
             </form>
             <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 md:dark:text-gray-100 ">
-              <p>Dont have an account yet? </p>
-              <a className="text-emerald-400">Register</a>
+              <p>Already have an account? </p>
+              <Link to="/login" className="text-emerald-400 ">
+                Login
+              </Link>
             </div>
           </div>
         </div>
