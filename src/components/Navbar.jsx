@@ -41,7 +41,7 @@ function Navbar() {
                 className=" transform transition-transform duration-300 hover:scale-125 hover:text-emerald-400 relative"
               />
             </button>
-            <span className="absolute bottom-14 left-1/2 transform -translate-x-1/2 z-20 px-4 py-2 text-sm font-bold text-white bg-gray-900 rounded-lg shadow-lg transition-transform duration-300 ease-in-out scale-0 group-hover:scale-100">
+            <span className="absolute top-16 left-1/2 transform -translate-x-1/2 z-20 px-4 py-2 text-sm font-bold text-black bg-white rounded-lg shadow-lg transition-transform duration-300 ease-in-out scale-0 group-hover:scale-100">
               New Post
             </span>
           </div>
@@ -49,7 +49,7 @@ function Navbar() {
         <div className="absolute bottom-5">
           <img
             src={rocket}
-            className="border-1 p-1 rounded-full hover:border-emerald-400"
+            className="border-1 p-1 rounded-full hover:border-emerald-400 hover:scale-110 active:scale-110"
             width="50"
             alt=""
           />
