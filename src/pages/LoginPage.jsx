@@ -4,13 +4,13 @@ function LoginPage() {
   return (
     <>
       <div className="md:flex   h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
-        <div className="flex md:bg-white items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
+        <div className="flex md:bg-white dark:text-gray-100 md:dark:bg-gray-800 items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
           <div className="flex gap-1 absolute top-2 left-2">
             <h1 className="text-4xl font-medium ">Galaxia</h1>
             <h1 className="text-4xl font-medium text-emerald-400 ">Login</h1>
           </div>
 
-          <div className="flex flex-col mt-10 md:justify-center   relative">
+          <div className="flex flex-col mt-10 md:justify-center dark:text-gray-100   relative">
             <img src={rocket} alt="here" width="400" className="md:hidden" />
             <div className=" hidden md:block text-center">
               <h1 className="text-7xl font-semibold xl:text-8xl">Hi There !</h1>
@@ -33,7 +33,7 @@ function LoginPage() {
                     id="email"
                     name="email"
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100
                       ring-gray-400'`}
                   />
                 </div>
@@ -51,7 +51,7 @@ function LoginPage() {
                     id="email"
                     name="email"
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
                       ring-gray-400'`}
                   />
                 </div>
@@ -85,7 +85,7 @@ function LoginPage() {
                 </div>
               </button>
             </form>
-            <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 ">
+            <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 dark:text-gray-100 ">
               <p>Dont have an account yet? </p>
               <a className="text-emerald-400">Register</a>
             </div>
@@ -97,7 +97,7 @@ function LoginPage() {
           <h1 className="text-5xl font-semibold xl:text-7xl">
             Join the Space{' '}
           </h1>
-          <p className="text-lg xl:text-2xl  w-[40vw] text-gray-500">
+          <p className="text-lg xl:text-2xl  w-[40vw] text-gray-500 ">
             {' '}
             Join the biggest community of the world and connect with them
           </p>
