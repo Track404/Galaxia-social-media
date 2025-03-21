@@ -3,7 +3,7 @@ import rocket from '../assets/loginSvg.svg';
 function UserFollow() {
   return (
     <>
-      <div className="flex items-center gap-2  p-2 rounded-2xl hover:bg-emerald-50">
+      <div className="flex items-center gap-2  p-2 rounded-2xl hover:bg-emerald-50 dark:hover:hover:bg-emerald-700">
         <img
           src={rocket}
           className="border-1 p-1  rounded-full "

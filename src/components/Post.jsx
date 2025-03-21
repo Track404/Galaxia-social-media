@@ -2,7 +2,7 @@ import rocket from '../assets/loginSvg.svg';
 
 function Post() {
   return (
-    <div className=" flex items-center gap-3 shadow-xs  p-3">
+    <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3">
       <div className="flex items-start gap-2">
         <img
           src={rocket}

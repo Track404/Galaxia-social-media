@@ -7,27 +7,27 @@ function HomePage() {
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <Border />
-      <Navbar />
-      <div className="w-full h-screen overflow-auto shadow-xl ">
-        <h2 className="p-2 pl-4 border-b-2 bg-gray-50 border-emerald-300 text-2xl font-bold ">
+      <Navbar pageName="Home" />
+      <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
+        <h2 className="p-2 pl-4 border-b-2 bg-gray-50 dark:bg-stone-800 dark:text-white  border-emerald-300 text-2xl font-bold ">
           Hi Name !
         </h2>
-        <div className=" flex items-center gap-3 shadow-sm  p-3 ">
+        <div className=" flex items-center gap-3 shadow-sm  p-3 border-b-1">
           <img
             src={rocket}
             className="border-1 p-1 mb-20 rounded-full hover:border-emerald-400"
             width="40"
             alt=""
           />
-          <form className="flex flex-col gap-2">
+          <form className="flex flex-col gap-2 ">
             <textarea
               name="post"
               id="post"
               rows="3"
-              cols="65"
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
+              cols="100"
+              className="w-full p-3 border resize-none border-gray-300 dark:bg-stone-800 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
               placeholder="Write something..."
             ></textarea>
 
