@@ -1,13 +1,15 @@
 import Navbar from '../components/Navbar';
 import Post from '../components/Post';
+import FollowBar from '../components/FollowBar';
 import rocket from '../assets/loginSvg.svg';
 function HomePage() {
   const items = [1, 2, 3, 4, 5];
+
   return (
     <div className="flex">
       <Navbar />
       <div className="w-full h-screen overflow-auto">
-        <h2 className="p-2 pl-4 border-b-2 bg-gray-50 border-emerald-400 text-2xl font-bold ">
+        <h2 className="p-2 pl-4 border-b-2 bg-gray-50 border-emerald-300 text-2xl font-bold ">
           Hi Name !
         </h2>
         <div className=" flex items-center gap-3 shadow-sm  p-3 ">
@@ -22,7 +24,7 @@ function HomePage() {
               name="post"
               id="post"
               rows="3"
-              cols="30"
+              cols="65"
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
               placeholder="Write something..."
             ></textarea>
@@ -42,7 +44,7 @@ function HomePage() {
           <Post key={item} />
         ))}
       </div>
-      <div></div>
+      <FollowBar />
     </div>
   );
 }
