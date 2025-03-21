@@ -1,14 +1,16 @@
 import Navbar from '../components/Navbar';
 import Post from '../components/Post';
 import FollowBar from '../components/FollowBar';
+import Border from '../components/border';
 import rocket from '../assets/loginSvg.svg';
 function HomePage() {
-  const items = [1, 2, 3, 4, 5];
+  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <div className="flex">
+      <Border />
       <Navbar />
-      <div className="w-full h-screen overflow-auto">
+      <div className="w-full h-screen overflow-auto shadow-xl ">
         <h2 className="p-2 pl-4 border-b-2 bg-gray-50 border-emerald-300 text-2xl font-bold ">
           Hi Name !
         </h2>
@@ -45,6 +47,7 @@ function HomePage() {
         ))}
       </div>
       <FollowBar />
+      <Border />
     </div>
   );
 }
