@@ -10,7 +10,7 @@ function PostPage() {
     <div className="flex ">
       <Border />
       <Navbar pageName="Home" />
-      <div className="w-full h-screen overflow-auto shadow-xl ">
+      <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
         <div className=" flex  gap-3 shadow-xs dark:border-b-1 white p-3">
           <div className="flex flex-col gap-3 ">
             <div className="flex justify-between  ">
