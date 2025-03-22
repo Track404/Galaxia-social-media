@@ -3,9 +3,8 @@ import { Mail } from 'lucide-react';
 import { User } from 'lucide-react';
 import { SendHorizonal } from 'lucide-react';
 import { Ellipsis } from 'lucide-react';
-import rocket from '../assets/loginSvg.svg';
 
-function Navbar({ pageName }) {
+function Navbar({ pageName, image }) {
   return (
     <>
       <nav className="flex flex-col  items-center align-middle bg-emerald-50 dark:bg-emerald-600 h-screen p-2 pl-4 pr-4 lg:pl-8 lg:pr-8 min-w-[10vw] max-w-[25vw] xl:min-w-[20vw] drop-shadow-sm  ">
@@ -65,8 +64,8 @@ function Navbar({ pageName }) {
         <div className="absolute bottom-5 xl:border-t-1 pt-3">
           <div className="flex gap-3 items-center ">
             <img
-              src={rocket}
-              className="border-1 p-1 dark:border-emerald-50 bg-white dark:bg-stone-800 rounded-full hover:border-emerald-400 xl:hover:border-black hover:scale-100 md:hover:scale-130 md:scale-120 active:scale-110 md:active:scale-120 xl:active:scale-120 xl:hover:scale-120"
+              src={image}
+              className="border-1  dark:border-emerald-50 bg-white dark:bg-stone-800 rounded-full hover:border-emerald-400 xl:hover:border-black hover:scale-100 md:hover:scale-130 md:scale-120 active:scale-110 md:active:scale-120 xl:active:scale-120 xl:hover:scale-120"
               width="50"
               alt=""
             />

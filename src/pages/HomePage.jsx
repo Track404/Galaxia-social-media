@@ -2,22 +2,36 @@ import Navbar from '../components/Navbar';
 import Post from '../components/Post';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
-import rocket from '../assets/loginSvg.svg';
-function HomePage() {
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+import { useQuery } from '@tanstack/react-query';
+import { getUniqueUser } from '../api/user';
+import { getAllPosts } from '../api/post';
+function HomePage() {
+  const userToken = 23;
+
+  const { data: dataUser } = useQuery({
+    queryKey: ['user', userToken],
+    queryFn: getUniqueUser,
+    enabled: !!userToken,
+  });
+
+  const { data: allPostsData } = useQuery({
+    queryKey: ['allPosts'],
+    queryFn: getAllPosts,
+    enabled: !!userToken,
+  });
   return (
     <div className="flex ">
       <Border />
-      <Navbar pageName="Home" />
+      <Navbar pageName="Home" image={dataUser.data.user.imageUrl} />
       <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
         <h2 className="p-2 pl-4 border-b-2 bg-gray-50 dark:bg-stone-800 dark:text-white  border-emerald-300 text-2xl font-bold ">
-          Hi Name !
+          Hi {dataUser && dataUser.data.user.name} !
         </h2>
         <div className=" flex items-center gap-3 shadow-sm  p-3 border-b-1">
           <img
-            src={rocket}
-            className="border-1 p-1 mb-20 rounded-full hover:border-emerald-400"
+            src={dataUser.data.user.imageUrl}
+            className="border-1  mb-20 rounded-full hover:border-emerald-400"
             width="40"
             alt=""
           />
@@ -42,9 +56,16 @@ function HomePage() {
             </button>
           </form>
         </div>
-        {items.map((item) => (
-          <Post key={item} />
-        ))}
+        {allPostsData &&
+          allPostsData.data.posts.map((post) => (
+            <Post
+              key={post.id}
+              content={post.content}
+              name={post.author.name}
+              date={post.createdAt}
+              image={post.author.imageUrl}
+            />
+          ))}
       </div>
       <FollowBar />
       <Border />

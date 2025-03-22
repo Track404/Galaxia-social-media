@@ -1,16 +1,14 @@
-import rocket from '../assets/loginSvg.svg';
-
-function UserFollow() {
+function UserFollow({ name, image }) {
   return (
     <>
-      <div className="flex items-center gap-2  p-2 rounded-2xl hover:bg-emerald-50 dark:hover:hover:bg-emerald-700">
+      <div className="flex items-center justify-between gap-2  p-2 rounded-2xl hover:bg-emerald-50 dark:hover:hover:bg-emerald-700">
         <img
-          src={rocket}
-          className="border-1 p-1  rounded-full "
+          src={image}
+          className="border-1   rounded-full "
           width="40"
           alt=""
         />
-        <p>Username</p>
+        <p>{name}</p>
         <button
           type="submit"
           className="ml-7 w-16  xl:w-30 px-10 py-1 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
