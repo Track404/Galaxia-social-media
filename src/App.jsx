@@ -4,12 +4,14 @@ import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+import PostPage from './pages/PostPage';
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to="/login" replace /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/register', element: <RegisterPage /> },
   { path: '/home', element: <HomePage /> },
   { path: '/profile', element: <ProfilePage /> },
+  { path: '/post', element: <PostPage /> },
 ]);
 function App() {
   return (

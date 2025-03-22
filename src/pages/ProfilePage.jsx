@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
 import Post from '../components/Post';
-import SvgBackground from '../assets/stripes.svg';
+
 import rocket from '../assets/loginSvg.svg';
 import { CalendarDays } from 'lucide-react';
 function ProfilePage() {
