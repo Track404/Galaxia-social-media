@@ -20,14 +20,16 @@ function ProfilePage() {
             width="100"
             alt=""
           />
-          <div>
+          <div className="dark:bg-stone-800 dark:text-white ">
             <div className="flex justify-between p-2 border-b-1 pt-7 ">
               <div className="flex flex-col gap-3 ">
                 <div>
                   <h2 className="text-lg font-medium">Name</h2>
-                  <h2 className="text-gray-500">@UserName</h2>
+                  <h2 className="text-gray-500 dark:text-gray-400">
+                    @UserName
+                  </h2>
                 </div>
-                <div className="text-gray-600">
+                <div className="text-gray-600 dark:text-gray-300">
                   <div className="flex">
                     <CalendarDays />
                     <p>Join March 2025</p>
