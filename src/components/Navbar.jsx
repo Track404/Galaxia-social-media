@@ -62,8 +62,8 @@ function Navbar({ pageName }) {
             </h2>
           </div>
         </div>
-        <div className="absolute bottom-5">
-          <div className="flex gap-3 items-center">
+        <div className="absolute bottom-5 xl:border-t-1 pt-3">
+          <div className="flex gap-3 items-center ">
             <img
               src={rocket}
               className="border-1 p-1 dark:border-emerald-50 bg-white dark:bg-stone-800 rounded-full hover:border-emerald-400 xl:hover:border-black hover:scale-100 md:hover:scale-130 md:scale-120 active:scale-110 md:active:scale-120 xl:active:scale-120 xl:hover:scale-120"
