@@ -5,11 +5,20 @@ import ProfilePage from './pages/ProfilePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import PostPage from './pages/PostPage';
+import ProtectedPage from './components/ProtectedRoute';
+
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to="/login" replace /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/register', element: <RegisterPage /> },
-  { path: '/home', element: <HomePage /> },
+  {
+    path: '/home',
+    element: (
+      <ProtectedPage>
+        <HomePage />
+      </ProtectedPage>
+    ),
+  },
   { path: '/profile', element: <ProfilePage /> },
   { path: '/post', element: <PostPage /> },
 ]);

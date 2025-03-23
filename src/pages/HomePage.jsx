@@ -6,9 +6,11 @@ import Border from '../components/border';
 import { useQuery } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
 import { getAllPosts } from '../api/post';
-function HomePage() {
-  const userToken = 23;
 
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
+function HomePage() {
+  const userToken = useContext(AuthContext);
   const { data: dataUser } = useQuery({
     queryKey: ['user', userToken],
     queryFn: getUniqueUser,
