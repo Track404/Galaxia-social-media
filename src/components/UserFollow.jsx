@@ -2,12 +2,7 @@ function UserFollow({ name, image }) {
   return (
     <>
       <div className="flex items-center justify-between gap-2  p-2 rounded-2xl hover:bg-emerald-50 dark:hover:hover:bg-emerald-700">
-        <img
-          src={image}
-          className="border-1   rounded-full "
-          width="40"
-          alt=""
-        />
+        <img src={image} className="border-1 rounded-full " width="40" alt="" />
         <p>{name}</p>
         <button
           type="submit"

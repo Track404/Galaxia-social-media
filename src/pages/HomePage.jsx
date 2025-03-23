@@ -23,14 +23,14 @@ function HomePage() {
   return (
     <div className="flex ">
       <Border />
-      <Navbar pageName="Home" image={dataUser.data.user.imageUrl} />
+      <Navbar pageName="Home" image={dataUser?.data.user.imageUrl} />
       <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
         <h2 className="p-2 pl-4 border-b-2 bg-gray-50 dark:bg-stone-800 dark:text-white  border-emerald-300 text-2xl font-bold ">
           Hi {dataUser && dataUser.data.user.name} !
         </h2>
         <div className=" flex items-center gap-3 shadow-sm  p-3 border-b-1">
           <img
-            src={dataUser.data.user.imageUrl}
+            src={dataUser?.data.user.imageUrl}
             className="border-1  mb-20 rounded-full hover:border-emerald-400"
             width="40"
             alt=""

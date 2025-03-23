@@ -1,6 +1,56 @@
 import rocket from '../assets/loginSvg.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+import { postUser } from '../api/user';
 function RegisterPage() {
+  const [userInfo, setUserInfo] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const [validationErrors, setValidationErrors] = useState(null);
+  const navigate = useNavigate();
+
+  const { mutate: addUserMutation } = useMutation({
+    mutationFn: postUser,
+    onError: (error) => {
+      if (error?.data?.errors) {
+        setValidationErrors(error.data.errors); // Store errors in state
+      }
+    },
+    onSuccess: () => {
+      console.log('sucess');
+      setValidationErrors(null);
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      !userInfo ||
+      !userInfo.name ||
+      !userInfo.email ||
+      !userInfo.password ||
+      !userInfo.confirmPassword
+    ) {
+      console.log('User info is incomplete');
+      return;
+    }
+    setValidationErrors(null);
+    addUserMutation({
+      data: {
+        name: userInfo.name,
+        email: userInfo.email,
+        password: userInfo.password,
+        confirmPassword: userInfo.confirmPassword,
+      },
+    });
+  };
   return (
     <>
       <div className="md:flex   h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
@@ -21,7 +71,10 @@ function RegisterPage() {
                 Be part of a community
               </p>
             </div>
-            <form className="flex flex-col items-center ">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col items-center "
+            >
               <div>
                 <label
                   htmlFor="username"
@@ -34,8 +87,12 @@ function RegisterPage() {
                     type="text"
                     id="username"
                     name="username"
+                    value={userInfo.name}
+                    onChange={(e) => {
+                      setUserInfo({ ...userInfo, name: e.target.value });
+                    }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white md:dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
                       ring-gray-400'`}
                   />
                 </div>
@@ -52,8 +109,12 @@ function RegisterPage() {
                     type="email"
                     id="email"
                     name="email"
+                    value={userInfo.email}
+                    onChange={(e) => {
+                      setUserInfo({ ...userInfo, email: e.target.value });
+                    }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white md:dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100
                       ring-gray-400'`}
                   />
                 </div>
@@ -71,8 +132,12 @@ function RegisterPage() {
                     type="password"
                     id="password"
                     name="password"
+                    value={userInfo.password}
+                    onChange={(e) => {
+                      setUserInfo({ ...userInfo, password: e.target.value });
+                    }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white md:dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
                       ring-gray-400'`}
                   />
                 </div>
@@ -90,8 +155,15 @@ function RegisterPage() {
                     type="password"
                     id="confirmPassword"
                     name="confirmPassword"
+                    value={userInfo.confirmPassword}
+                    onChange={(e) => {
+                      setUserInfo({
+                        ...userInfo,
+                        confirmPassword: e.target.value,
+                      });
+                    }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white md:dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
                       ring-gray-400'`}
                   />
                 </div>

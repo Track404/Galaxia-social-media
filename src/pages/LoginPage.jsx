@@ -4,13 +4,13 @@ function LoginPage() {
   return (
     <>
       <div className="md:flex   h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
-        <div className="flex md:bg-white dark:text-gray-100 md:dark:bg-gray-800 items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
+        <div className="flex md:bg-white md:dark:text-gray-100 md:dark:bg-gray-800 items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
           <div className="flex gap-1 absolute top-2 left-2">
             <h1 className="text-4xl font-medium ">Galaxia</h1>
             <h1 className="text-4xl font-medium text-emerald-400 ">Login</h1>
           </div>
 
-          <div className="flex flex-col mt-10 md:justify-center dark:text-gray-100   relative">
+          <div className="flex flex-col mt-10 md:justify-center md:dark:text-gray-100   relative">
             <img src={rocket} alt="here" width="400" className="md:hidden" />
             <div className=" hidden md:block text-center">
               <h1 className="text-7xl font-semibold xl:text-8xl">Hi There !</h1>
@@ -85,7 +85,7 @@ function LoginPage() {
                 </div>
               </button>
             </form>
-            <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 dark:text-gray-100 ">
+            <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 md:dark:text-gray-100 ">
               <p>Dont have an account yet? </p>
               <Link to="/register" className="text-emerald-400">
                 Register
