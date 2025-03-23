@@ -40,3 +40,15 @@ export const getRandomUsers = async () => {
     throw new Error(error);
   }
 };
+
+export const getSearchUsers = async ({ queryKey }) => {
+  try {
+    const [, search, page] = queryKey;
+    const response = await axiosInstance.get(`/users/search`, {
+      params: { search, page },
+    });
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
