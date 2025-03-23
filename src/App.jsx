@@ -19,7 +19,14 @@ const router = createBrowserRouter([
       </ProtectedPage>
     ),
   },
-  { path: '/profile', element: <ProfilePage /> },
+  {
+    path: '/profile',
+    element: (
+      <ProtectedPage>
+        <ProfilePage />
+      </ProtectedPage>
+    ),
+  },
   { path: '/post/:id', element: <PostPage /> },
 ]);
 function App() {

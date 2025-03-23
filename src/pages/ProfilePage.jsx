@@ -2,20 +2,35 @@ import Navbar from '../components/Navbar';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
 import Post from '../components/Post';
-
-import rocket from '../assets/loginSvg.svg';
+import { useQuery } from '@tanstack/react-query';
+import { getUniqueUser } from '../api/user';
+import { getAllPostsByAuthorId } from '../api/post';
+import { format } from 'date-fns';
 import { CalendarDays } from 'lucide-react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
 function ProfilePage() {
+  const userToken = useContext(AuthContext);
+  const { data: dataUser } = useQuery({
+    queryKey: ['userProfile', userToken],
+    queryFn: getUniqueUser,
+    enabled: !!userToken,
+  });
+  const { data: dataPost } = useQuery({
+    queryKey: ['userPost', userToken],
+    queryFn: getAllPostsByAuthorId,
+    enabled: !!userToken,
+  });
   return (
-    <div className="flex ">
+    <div className="flex dark:bg-stone-800 ">
       <Border />
       <Navbar pageName="Profile" />
       <div className="w-full h-screen overflow-auto shadow-xl relative ">
         <div>
           <div className="w-full h-35 bg-emerald-100"></div>
           <img
-            src={rocket}
-            className="border-1 p-1 absolute top-15 left-3 mb-20 rounded-full bg-white md:left-5 md:scale-120"
+            src={dataUser?.data.user.imageUrl}
+            className="border-1  absolute top-15 left-3 mb-20 rounded-full bg-white md:left-5 md:scale-120"
             width="100"
             alt=""
           />
@@ -23,19 +38,25 @@ function ProfilePage() {
             <div className="flex justify-between p-2 border-b-1 pt-7 ">
               <div className="flex flex-col gap-3 ">
                 <div>
-                  <h2 className="text-lg font-medium">Name</h2>
+                  <h2 className="text-lg font-medium">
+                    {dataUser?.data.user.name}
+                  </h2>
                   <h2 className="text-gray-500 dark:text-gray-400">
-                    @UserName
+                    @{dataUser?.data.user.name}
                   </h2>
                 </div>
                 <div className="text-gray-600 dark:text-gray-300">
                   <div className="flex">
                     <CalendarDays />
-                    <p>Join March 2025</p>
+                    <p>
+                      Join{' '}
+                      {dataUser &&
+                        format(dataUser.data.user.createdAt, ' MMMM do')}
+                    </p>
                   </div>
                   <div className="flex gap-3">
-                    <p>10 Following</p>
-                    <p>10 Folllowers</p>
+                    <p>{dataUser?.data.user._count.following} Following</p>
+                    <p>{dataUser?.data.user._count.followers} Folllowers</p>
                   </div>
                 </div>
               </div>
@@ -54,9 +75,19 @@ function ProfilePage() {
               Your Posts
             </h2>
             <div>
-              {/*items.map((item) => (
-                <Post key={item} />
-              ))*/}
+              {dataPost &&
+                dataPost.data.posts.map((post) => (
+                  <Post
+                    key={post.id}
+                    id={post.id}
+                    content={post.content}
+                    name={post.author.name}
+                    date={post.createdAt}
+                    image={post.author.imageUrl}
+                    like={post._count.Likes}
+                    comment={post._count.Comments}
+                  />
+                ))}
             </div>
           </div>
         </div>
