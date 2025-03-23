@@ -1,7 +1,8 @@
 import { format } from 'date-fns';
-function Post({ content, date, name, image }) {
+import { MessageCircle, Heart } from 'lucide-react';
+function Post({ content, date, name, image, like, comment }) {
   return (
-    <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3">
+    <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative">
       <div className="flex items-start gap-2">
         <img
           src={image}
@@ -18,6 +19,16 @@ function Post({ content, date, name, image }) {
 
             <p>{content}</p>
           </div>
+        </div>
+      </div>
+      <div className="absolute bottom-2 right-20 flex gap-6  p-1 pl-5 ">
+        <div className="flex gap-0.5  ">
+          <MessageCircle size="20" strokeWidth="1.5" />
+          <p>{comment}</p>
+        </div>
+        <div className="flex gap-0.5">
+          <Heart size="20" strokeWidth="1.5" />
+          <p>{like}</p>
         </div>
       </div>
     </div>

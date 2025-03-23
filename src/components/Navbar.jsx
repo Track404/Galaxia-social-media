@@ -3,8 +3,9 @@ import { Mail } from 'lucide-react';
 import { User } from 'lucide-react';
 import { SendHorizonal } from 'lucide-react';
 import { Ellipsis } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 function Navbar({ pageName, image }) {
+  const navigate = useNavigate();
   return (
     <>
       <nav className="flex flex-col  items-center align-middle bg-emerald-50 dark:bg-emerald-600 h-screen p-2 pl-4 pr-4 lg:pl-8 lg:pr-8 min-w-[10vw] max-w-[25vw] xl:min-w-[20vw] drop-shadow-sm  ">
@@ -17,7 +18,12 @@ function Navbar({ pageName, image }) {
             {pageName}
           </h1>
         </div>
-        <div className="flex flex-col gap-2 md:gap-6 ">
+        <div
+          onClick={() => {
+            navigate('/home');
+          }}
+          className="flex flex-col gap-2 md:gap-6 "
+        >
           <div className="flex gap-3 items-center xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50 ">
             <House
               size="35"
@@ -34,7 +40,12 @@ function Navbar({ pageName, image }) {
             />
             <h2 className="hidden xl:block text-2xl  font-medium">Messages</h2>
           </div>
-          <div className="flex gap-3 items-center xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50">
+          <div
+            onClick={() => {
+              navigate('/profile');
+            }}
+            className="flex gap-3 items-center xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50"
+          >
             <User
               size="35"
               strokeWidth="1.5"
