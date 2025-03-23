@@ -9,22 +9,31 @@ import { format } from 'date-fns';
 import { CalendarDays } from 'lucide-react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
+import { useParams } from 'react-router-dom';
+
 function ProfilePage() {
   const userToken = useContext(AuthContext);
+  const { id } = useParams();
   const { data: dataUser } = useQuery({
-    queryKey: ['userProfile', userToken],
+    queryKey: ['userProfile', id],
+    queryFn: getUniqueUser,
+    enabled: !!id,
+  });
+
+  const { data: dataAuthUser } = useQuery({
+    queryKey: ['user', userToken],
     queryFn: getUniqueUser,
     enabled: !!userToken,
   });
   const { data: dataPost } = useQuery({
-    queryKey: ['userPost', userToken],
+    queryKey: ['userPost', id],
     queryFn: getAllPostsByAuthorId,
-    enabled: !!userToken,
+    enabled: !!id,
   });
   return (
     <div className="flex dark:bg-stone-800 ">
       <Border />
-      <Navbar pageName="Profile" />
+      <Navbar pageName="Profile" image={dataAuthUser?.data.user.imageUrl} />
       <div className="w-full h-screen overflow-auto shadow-xl relative ">
         <div>
           <div className="w-full h-35 bg-emerald-100"></div>
@@ -60,16 +69,18 @@ function ProfilePage() {
                   </div>
                 </div>
               </div>
-              <button
-                type="submit"
-                className="self-end w-16  xl:w-30 mb-15 relative flex flex-col items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
-              >
-                <span className="text-md">Change</span>
-                <span className="text-md">Info</span>
-                <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
-                  <div className="relative h-full w-10 bg-white/20"></div>
-                </div>
-              </button>
+              {id == userToken ? (
+                <button
+                  type="submit"
+                  className="self-end w-16  xl:w-30 mb-15 relative flex flex-col items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                >
+                  <span className="text-md">Change</span>
+                  <span className="text-md">Info</span>
+                  <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                    <div className="relative h-full w-10 bg-white/20"></div>
+                  </div>
+                </button>
+              ) : null}
             </div>
             <h2 className="text-2xl font-medium p-2 border-b-1 border-emerald-500">
               Your Posts

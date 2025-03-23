@@ -4,7 +4,10 @@ import { User } from 'lucide-react';
 import { SendHorizonal } from 'lucide-react';
 import { Ellipsis } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
 function Navbar({ pageName, image }) {
+  const userToken = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <>
@@ -42,7 +45,7 @@ function Navbar({ pageName, image }) {
           </div>
           <div
             onClick={() => {
-              navigate('/profile');
+              navigate(`/profile/${userToken}`);
             }}
             className="flex gap-3 items-center xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50"
           >

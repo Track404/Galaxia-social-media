@@ -73,7 +73,12 @@ function FollowBar() {
       <div className="bg-white dark:bg-stone-800 dark:text-white absolute z-10 top-17 w-[28vw]  rounded-2xl  ">
         {searchData &&
           searchData.data.users.map((user) => (
-            <UserFollow key={user.id} image={user.imageUrl} name={user.name} />
+            <UserFollow
+              key={user.id}
+              id={user.id}
+              image={user.imageUrl}
+              name={user.name}
+            />
           ))}
         {searchData && (
           <div className="flex gap-2 mt-2 justify-around border-t-1 p-2">
@@ -107,7 +112,12 @@ function FollowBar() {
         <h2 className="text-2xl font-medium mb-2">Who to follow</h2>
         {data &&
           data.data.user.map((user) => (
-            <UserFollow key={user.id} image={user.imageUrl} name={user.name} />
+            <UserFollow
+              key={user.id}
+              id={user.id}
+              image={user.imageUrl}
+              name={user.name}
+            />
           ))}
       </div>
     </div>
