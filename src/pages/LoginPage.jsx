@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { LoginUser } from '../api/auth';
+import { LoginUser, LoginUserGithub } from '../api/auth';
 function LoginPage() {
   const [userInfo, setUserInfo] = useState({
     email: '',
@@ -13,6 +13,7 @@ function LoginPage() {
   const [invalidInput, setInvalidInput] = useState(null);
   const navigate = useNavigate();
 
+  // Basic login mutation
   const { mutate: addUserMutation } = useMutation({
     mutationFn: LoginUser,
     onError: (error) => {
@@ -49,6 +50,11 @@ function LoginPage() {
         password: userInfo.password,
       },
     });
+  };
+  //Github Login Redirect
+  const handleClickGithub = (e) => {
+    e.preventDefault();
+    window.location.href = 'http://localhost:3000/login/github'; // Redirect to backend auth route
   };
   return (
     <>
@@ -126,7 +132,8 @@ function LoginPage() {
                 </div>
               </button>
               <button
-                type="submit"
+                type="button"
+                onClick={handleClickGithub}
                 className="group/button mt-2 w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
               >
                 <div className="flex items-center">
@@ -146,6 +153,7 @@ function LoginPage() {
               </button>
             </form>
             <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 md:dark:text-gray-100 ">
+              <button onClick={handleClickGithub}>here</button>
               <p>Dont have an account yet? </p>
               <Link to="/register" className="text-emerald-400">
                 Register

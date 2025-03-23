@@ -13,9 +13,9 @@ export const LoginUser = async ({ data }) => {
   }
 };
 
-export const LoginUserGithub = async ({ data }) => {
+export const LoginUserGithub = async () => {
   try {
-    const response = await axiosInstance.post(`/login/github`, data);
+    const response = await axiosInstance.post(`/login/github`);
     return response.data;
   } catch (error) {
     if (error.response) {
