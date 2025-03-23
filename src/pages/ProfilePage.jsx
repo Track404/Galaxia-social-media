@@ -64,8 +64,8 @@ function ProfilePage() {
                     </p>
                   </div>
                   <div className="flex gap-3">
-                    <p>{dataUser?.data.user._count.following} Following</p>
-                    <p>{dataUser?.data.user._count.followers} Folllowers</p>
+                    <p>{dataUser?.data.user._count.followers} Following</p>
+                    <p>{dataUser?.data.user._count.following} Folllowers</p>
                   </div>
                 </div>
               </div>

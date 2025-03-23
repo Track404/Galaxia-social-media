@@ -95,9 +95,9 @@ function FollowBar() {
             </button>
             <button
               type="submit"
-              disabled={searchData?.data.users.length < 20}
+              disabled={searchData?.data.users.length < 10}
               onClick={() => setPage((prev) => prev + 1)}
-              className=" w-16  xl:w-30 px-10 py-1 relative inline-flex  items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+              className=" w-16  xl:w-30 px-10 py-1 relative inline-flex  items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl disabled:opacity-50 hover:shadow-gray-600/50 border border-white/20"
             >
               <span className="text-md">Next</span>
               <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
