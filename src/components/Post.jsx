@@ -1,8 +1,16 @@
 import { format } from 'date-fns';
 import { MessageCircle, Heart } from 'lucide-react';
-function Post({ content, date, name, image, like, comment }) {
+import { useNavigate } from 'react-router-dom';
+
+function Post({ id, content, date, name, image, like, comment }) {
+  const navigate = useNavigate();
   return (
-    <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative">
+    <div
+      onClick={() => {
+        navigate(`/post/${id}`);
+      }}
+      className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative"
+    >
       <div className="flex items-start gap-2">
         <img
           src={image}

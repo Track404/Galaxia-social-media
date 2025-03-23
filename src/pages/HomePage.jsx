@@ -62,6 +62,7 @@ function HomePage() {
           allPostsData.data.posts.map((post) => (
             <Post
               key={post.id}
+              id={post.id}
               content={post.content}
               name={post.author.name}
               date={post.createdAt}

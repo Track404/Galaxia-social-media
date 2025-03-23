@@ -5,7 +5,6 @@ import rocket from '../assets/loginSvg.svg';
 import Post from '../components/Post';
 import { MessageCircle, Heart } from 'lucide-react';
 function PostPage() {
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <div className="flex ">
       <Border />
@@ -91,9 +90,9 @@ function PostPage() {
             </button>
           </form>
         </div>
-        {items.map((item) => (
+        {/*items.map((item) => (
           <Post key={item} />
-        ))}
+        ))*/}
       </div>
       <FollowBar />
       <Border />

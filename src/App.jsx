@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     ),
   },
   { path: '/profile', element: <ProfilePage /> },
-  { path: '/post', element: <PostPage /> },
+  { path: '/post/:id', element: <PostPage /> },
 ]);
 function App() {
   return (
