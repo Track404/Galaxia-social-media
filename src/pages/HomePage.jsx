@@ -3,14 +3,21 @@ import Post from '../components/Post';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
 import { getAllPosts } from '../api/post';
+import { createPost } from '../api/post';
 
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 function HomePage() {
   const userToken = useContext(AuthContext);
+  const [postInfo, setPostInfo] = useState({
+    title: '',
+    content: '',
+  });
+  const [validationErrors, setValidationErrors] = useState(null);
+  const [invalidInput, setInvalidInput] = useState(null);
   const { data: dataUser } = useQuery({
     queryKey: ['user', userToken],
     queryFn: getUniqueUser,
@@ -22,6 +29,40 @@ function HomePage() {
     queryFn: getAllPosts,
     enabled: !!userToken,
   });
+
+  const { mutate: addPostMutation } = useMutation({
+    mutationFn: createPost,
+    onError: (error) => {
+      if (error?.data?.errors) {
+        setValidationErrors(error.data.errors);
+        const newErrors = {};
+        error.data.errors.forEach((err) => {
+          newErrors[err.path] = err.msg;
+        });
+        setInvalidInput(newErrors);
+        console.log(invalidInput); // Store errors in state
+      }
+    },
+    onSuccess: () => {
+      console.log('Post created succesfully');
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!postInfo || !postInfo.content) {
+      console.log('Post info is incomplete');
+      return;
+    }
+    setValidationErrors(null);
+    addPostMutation({
+      data: {
+        title: postInfo.title,
+        content: postInfo.content,
+      },
+      userId: userToken,
+    });
+  };
   return (
     <div className="flex ">
       <Border />
@@ -37,12 +78,16 @@ function HomePage() {
             width="40"
             alt=""
           />
-          <form className="flex flex-col gap-2 ">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
             <textarea
               name="post"
               id="post"
               rows="3"
               cols="100"
+              value={postInfo.content}
+              onChange={(e) => {
+                setPostInfo({ ...postInfo, content: e.target.value });
+              }}
               className="w-full p-3 border resize-none border-gray-300 dark:bg-stone-800 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
               placeholder="Write something..."
             ></textarea>

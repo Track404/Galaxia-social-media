@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 function Post({ id, content, date, name, image, like, comment }) {
   const navigate = useNavigate();
   return (
-    <div
-      onClick={() => {
-        navigate(`/post/${id}`);
-      }}
-      className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative"
-    >
-      <div className="flex items-start gap-2">
+    <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative">
+      <div
+        onClick={() => {
+          navigate(`/post/${id}`);
+        }}
+        className="flex items-start gap-2"
+      >
         <img
           src={image}
           className="border-1  mb-20 rounded-full hover:border-emerald-400"
@@ -30,11 +30,11 @@ function Post({ id, content, date, name, image, like, comment }) {
         </div>
       </div>
       <div className="absolute bottom-2 right-20 flex gap-6  p-1 pl-5 ">
-        <div className="flex gap-0.5  ">
+        <div className="flex gap-0.5 hover:text-emerald-400 ">
           <MessageCircle size="20" strokeWidth="1.5" />
           <p>{comment}</p>
         </div>
-        <div className="flex gap-0.5">
+        <div className="flex gap-0.5 hover:text-red-400">
           <Heart size="20" strokeWidth="1.5" />
           <p>{like}</p>
         </div>

@@ -18,13 +18,13 @@ function Navbar({ pageName, image }) {
             {pageName}
           </h1>
         </div>
-        <div
-          onClick={() => {
-            navigate('/home');
-          }}
-          className="flex flex-col gap-2 md:gap-6 "
-        >
-          <div className="flex gap-3 items-center xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50 ">
+        <div className="flex flex-col gap-2 md:gap-6 ">
+          <div
+            onClick={() => {
+              navigate('/home');
+            }}
+            className="flex gap-3 items-center xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50 "
+          >
             <House
               size="35"
               strokeWidth="1.5"

@@ -33,7 +33,7 @@ export async function checkUserAuthentication() {
       withCredentials: true,
     });
 
-    console.log('User authenticated:', response.data.user);
+    console.log('User authenticated');
     return response.data; // Return the user data from the response
   } catch (error) {
     if (error.response) {
