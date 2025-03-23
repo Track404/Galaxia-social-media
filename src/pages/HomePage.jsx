@@ -44,6 +44,10 @@ function HomePage() {
       }
     },
     onSuccess: () => {
+      setPostInfo({
+        title: '',
+        content: '',
+      });
       console.log('Post created succesfully');
     },
   });
@@ -104,18 +108,20 @@ function HomePage() {
           </form>
         </div>
         {allPostsData &&
-          allPostsData.data.posts.map((post) => (
-            <Post
-              key={post.id}
-              id={post.id}
-              content={post.content}
-              name={post.author.name}
-              date={post.createdAt}
-              image={post.author.imageUrl}
-              like={post._count.Likes}
-              comment={post._count.Comments}
-            />
-          ))}
+          allPostsData.data.posts.map((post) =>
+            post.author.id === userToken ? null : (
+              <Post
+                key={post.id}
+                id={post.id}
+                content={post.content}
+                name={post.author.name}
+                date={post.createdAt}
+                image={post.author.imageUrl}
+                like={post._count.Likes}
+                comment={post._count.Comments}
+              />
+            )
+          )}
       </div>
       <FollowBar />
       <Border />
