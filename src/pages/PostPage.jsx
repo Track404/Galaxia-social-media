@@ -13,6 +13,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import { createFollow, getFollowPairs } from '../api/follow';
+
 import { createComment } from '../api/comment';
 import { useQueryClient } from '@tanstack/react-query';
 function PostPage() {
@@ -21,6 +23,7 @@ function PostPage() {
     title: '',
     content: '',
   });
+  const [followDisabled, setFollowDisabled] = useState(false);
   const [validationErrors, setValidationErrors] = useState(null);
   const [invalidInput, setInvalidInput] = useState(null);
   const queryClient = useQueryClient();
@@ -76,6 +79,33 @@ function PostPage() {
       userId: userToken,
     });
   };
+  const { data: dataFollowing } = useQuery({
+    queryKey: ['userPostFollow', userToken, dataPost?.post.author.id],
+    queryFn: getFollowPairs,
+    enabled: !!userToken && !!dataPost?.post.author.id,
+  });
+  const { mutate: addFollowMutation } = useMutation({
+    mutationFn: createFollow,
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: () => {
+      console.log('success follow');
+      setFollowDisabled(true);
+    },
+  });
+
+  const handleClickFollow = (e) => {
+    e.preventDefault();
+    if (!dataPost?.post.author.id) {
+      console.log('no user id');
+      return;
+    }
+    addFollowMutation({
+      followId: dataPost?.post.author.id,
+      followerId: userToken,
+    });
+  };
   return (
     <div className="flex ">
       <Border />
@@ -87,7 +117,7 @@ function PostPage() {
               <div className="flex gap-2  items-center ">
                 <img
                   src={dataPost?.post.author.imageUrl}
-                  className="border-1 p-1 rounded-full hover:border-emerald-400"
+                  className="border-1  rounded-full hover:border-emerald-400"
                   width="50"
                   alt=""
                 />
@@ -102,7 +132,9 @@ function PostPage() {
               </div>
               <button
                 type="submit"
-                className="self-end w-20 mb-5  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                onClick={handleClickFollow}
+                disabled={followDisabled || dataFollowing?.follow}
+                className="self-end w-20 mb-5 disabled:opacity-50  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
               >
                 <span className="text-md">Follow</span>
                 <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
