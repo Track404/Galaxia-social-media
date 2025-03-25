@@ -21,6 +21,16 @@ export const getAllPosts = async () => {
     throw new Error(error);
   }
 };
+
+export const getUniquePostById = async ({ queryKey }) => {
+  const [, postId] = queryKey;
+  try {
+    const response = await axiosInstance.get(`/post/${postId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 export const getAllPostsByAuthorId = async ({ queryKey }) => {
   try {
     const [, userToken] = queryKey;
