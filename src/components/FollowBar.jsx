@@ -80,7 +80,7 @@ function FollowBar() {
               name={user.name}
             />
           ))}
-        {searchData && (
+        {searchData && searchData?.data.users.length > 0 && (
           <div className="flex gap-2 mt-2 justify-around border-t-1 p-2">
             <button
               type="submit"
@@ -105,6 +105,9 @@ function FollowBar() {
               </div>
             </button>
           </div>
+        )}
+        {searchData && searchData?.data.users.length <= 0 && (
+          <p className="text-lg ml-4 p-2 pb-4">No User Found !</p>
         )}
       </div>
 
