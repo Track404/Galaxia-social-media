@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
-import Post from '../components/Post';
+
 import Comment from '../components/Comment';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';

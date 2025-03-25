@@ -6,6 +6,7 @@ import { Ellipsis } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
+import DialogNewPost from './DialogNewPost';
 function Navbar({ pageName, image }) {
   const userToken = useContext(AuthContext);
   const navigate = useNavigate();
@@ -91,6 +92,7 @@ function Navbar({ pageName, image }) {
             />
           </div>
         </div>
+        <DialogNewPost open={true} onClose={false} />
       </nav>
     </>
   );
