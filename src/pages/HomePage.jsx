@@ -7,12 +7,12 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
 import { getAllPosts } from '../api/post';
 import { createPost } from '../api/post';
-import { QueryClient } from '@tanstack/react-query';
+
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 function HomePage() {
   const userToken = useContext(AuthContext);
-  const queryClient = queryClient();
+
   const [postInfo, setPostInfo] = useState({
     title: '',
     content: '',

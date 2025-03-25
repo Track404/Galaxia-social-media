@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { updateUser } from '../api/user';
 import { useQueryClient } from '@tanstack/react-query';
+import { CircleX } from 'lucide-react';
 export default function DialogUserChange({ open, onClose, userInfo }) {
   const [validationErrors, setValidationErrors] = useState(null);
   const [invalidInput, setInvalidInput] = useState(null);
@@ -48,12 +49,8 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
       }
     },
     onSuccess: () => {
-      setUpdatedUserInfo({
-        imageUrl: '',
-        name: '',
-        email: '',
-      });
       queryClient.invalidateQueries(['user']);
+      onClose();
       console.log('user updated succesfully');
     },
   });
@@ -75,7 +72,15 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
   return (
     <>
       <Dialog open={open} onClose={onClose}>
-        <div className="flex flex-col items-center p-6 bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl shadow-xl">
+        <div className="flex flex-col items-center p-6 pt-8 bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl shadow-xl relative">
+          <CircleX
+            onClick={() => {
+              onClose();
+            }}
+            className="absolute top-2 right-2 hover:text-emerald-500 hover:scale-110"
+            size="35"
+            strokeWidth="1.5"
+          />
           <div className="text-center mb-6 bg-gradient-to-r from-emerald-300 via-emerald-500 to-emerald-900 bg-clip-text text-transparent text-3xl font-black tracking-tight">
             Change User Info
           </div>

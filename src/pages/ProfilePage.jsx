@@ -38,9 +38,9 @@ function ProfilePage() {
       <Border />
       <Navbar pageName="Profile" image={dataAuthUser?.data.user.imageUrl} />
       <DialogUserChange
-        open={true}
+        open={dialogOpen}
         onClose={() => {
-          setDialogOpen(false);
+          setDialogOpen(!dialogOpen);
         }}
         userInfo={dataUser?.data}
       />
