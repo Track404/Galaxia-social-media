@@ -10,9 +10,12 @@ import { CalendarDays } from 'lucide-react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import { useParams } from 'react-router-dom';
+import DialogUserChange from '../components/DialogUserInfo';
+import { useState } from 'react';
 
 function ProfilePage() {
   const userToken = useContext(AuthContext);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const { id } = useParams();
   const { data: dataUser } = useQuery({
     queryKey: ['userProfile', id],
@@ -34,6 +37,13 @@ function ProfilePage() {
     <div className="flex dark:bg-stone-800 ">
       <Border />
       <Navbar pageName="Profile" image={dataAuthUser?.data.user.imageUrl} />
+      <DialogUserChange
+        open={true}
+        onClose={() => {
+          setDialogOpen(false);
+        }}
+        userInfo={dataUser?.data}
+      />
       <div className="w-full h-screen overflow-auto shadow-xl relative ">
         <div>
           <div className="w-full h-35 bg-emerald-100"></div>
@@ -72,6 +82,9 @@ function ProfilePage() {
               {id == userToken ? (
                 <button
                   type="submit"
+                  onClick={() => {
+                    setDialogOpen(!dialogOpen);
+                  }}
                   className="self-end w-16  xl:w-30 mb-15 relative flex flex-col items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
                 >
                   <span className="text-md">Change</span>
