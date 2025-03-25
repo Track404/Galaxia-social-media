@@ -1,7 +1,6 @@
 import Navbar from '../components/Navbar';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
-
 import Comment from '../components/Comment';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
@@ -109,7 +108,7 @@ function PostPage() {
   return (
     <div className="flex ">
       <Border />
-      <Navbar pageName="Home" />
+      <Navbar pageName="Post" />
       <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
         <div className=" flex  gap-3 shadow-xs dark:border-b-1 white p-3">
           <div className="flex flex-col gap-3 ">
@@ -130,17 +129,19 @@ function PostPage() {
                   </h2>
                 </div>
               </div>
-              <button
-                type="submit"
-                onClick={handleClickFollow}
-                disabled={followDisabled || dataFollowing?.follow}
-                className="self-end w-20 mb-5 disabled:opacity-50  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
-              >
-                <span className="text-md">Follow</span>
-                <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
-                  <div className="relative h-full w-10 bg-white/20"></div>
-                </div>
-              </button>
+              {userToken !== dataPost?.post.author.id && (
+                <button
+                  type="submit"
+                  onClick={handleClickFollow}
+                  disabled={followDisabled || dataFollowing?.follow}
+                  className="self-end w-20 mb-5 disabled:opacity-50  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                >
+                  <span className="text-md">Follow</span>
+                  <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                    <div className="relative h-full w-10 bg-white/20"></div>
+                  </div>
+                </button>
+              )}
             </div>
 
             <div>

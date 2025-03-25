@@ -36,6 +36,7 @@ export default function DialogNewPost({ open, onClose }) {
         title: '',
         content: '',
       });
+      onClose();
 
       console.log('Post created succesfully');
     },

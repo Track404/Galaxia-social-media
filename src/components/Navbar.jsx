@@ -4,11 +4,12 @@ import { User } from 'lucide-react';
 import { SendHorizonal } from 'lucide-react';
 import { Ellipsis } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import DialogNewPost from './DialogNewPost';
 function Navbar({ pageName, image }) {
   const userToken = useContext(AuthContext);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const navigate = useNavigate();
   return (
     <>
@@ -57,7 +58,12 @@ function Navbar({ pageName, image }) {
             />
             <h2 className="hidden xl:block text-2xl   font-medium">Profile</h2>
           </div>
-          <div className="flex gap-3 items-center text-end xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50">
+          <div
+            onClick={() => {
+              setDialogOpen(!dialogOpen);
+            }}
+            className="flex gap-3 items-center text-end xl:hover:text-emerald-400 xl:dark:hover:text-emerald-50"
+          >
             <div className=" group relative ">
               <button className="mt-5 xl:mt-0 ">
                 <SendHorizonal
@@ -80,6 +86,9 @@ function Navbar({ pageName, image }) {
           <div className="flex gap-3 items-center ">
             <img
               src={image}
+              onClick={() => {
+                navigate(`/profile/${userToken}`);
+              }}
               className="border-1  dark:border-emerald-50 bg-white dark:bg-stone-800 rounded-full hover:border-emerald-400 xl:hover:border-black hover:scale-100 md:hover:scale-130 md:scale-120 active:scale-110 md:active:scale-120 xl:active:scale-120 xl:hover:scale-120"
               width="50"
               alt=""
@@ -92,7 +101,12 @@ function Navbar({ pageName, image }) {
             />
           </div>
         </div>
-        <DialogNewPost open={true} onClose={false} />
+        <DialogNewPost
+          open={dialogOpen}
+          onClose={() => {
+            setDialogOpen(!dialogOpen);
+          }}
+        />
       </nav>
     </>
   );

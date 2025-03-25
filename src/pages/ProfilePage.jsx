@@ -46,7 +46,7 @@ function ProfilePage() {
       />
       <div className="w-full h-screen overflow-auto shadow-xl relative ">
         <div>
-          <div className="w-full h-35 bg-emerald-100"></div>
+          <div className="w-full h-35 bg-emerald-200"></div>
           <img
             src={dataUser?.data.user.imageUrl}
             className="border-1  absolute top-15 left-3 mb-20 rounded-full bg-white md:left-5 md:scale-120"
