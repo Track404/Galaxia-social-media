@@ -1,9 +1,60 @@
 import { format } from 'date-fns';
 import { MessageCircle, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+import { useMutation } from '@tanstack/react-query';
+import { createLikeOnPost, deleteLike } from '../api/like';
+import { useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext';
+import { useQuery } from '@tanstack/react-query';
+import { getLike } from '../api/like';
 function Post({ id, content, date, name, image, like, comment = 0 }) {
+  const userToken = useContext(AuthContext);
+  const [isLike, setIsLike] = useState(null);
   const navigate = useNavigate();
+  /*const { data: dataLike } = useQuery({
+    queryKey: ['likePost', userToken, id],
+    queryFn: ,
+    enabled: !!userToken && !!id,
+  });
+*/
+  const { mutate: addLikeMutation } = useMutation({
+    mutationFn: createLikeOnPost,
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: () => {
+      console.log('success like created');
+      setIsLike(true);
+    },
+  });
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    addLikeMutation({
+      postId: id,
+      authorId: userToken,
+    });
+  };
+
+  const { mutate: addDeleteLikeMutation } = useMutation({
+    mutationFn: deleteLike,
+    onError: (error) => {
+      console.log(error);
+    },
+    onSuccess: () => {
+      console.log('success like created');
+      setIsLike(true);
+    },
+  });
+
+  const handleDeleteClick = (e) => {
+    e.preventDefault();
+    addLikeMutation({
+      postId: id,
+      authorId: userToken,
+    });
+  };
   return (
     <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative">
       <div
@@ -35,7 +86,14 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
           <p>{comment}</p>
         </div>
         <div className="flex gap-0.5 hover:text-red-400">
-          <Heart size="20" strokeWidth="1.5" />
+          <button onClick={handleClick}>
+            <Heart
+              size="20"
+              strokeWidth="1.5"
+              className={isLike ? 'text-red-700' : 'text-white-400'}
+            />
+          </button>
+
           <p>{like}</p>
         </div>
       </div>
