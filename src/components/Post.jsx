@@ -1,63 +1,81 @@
 import { format, set } from 'date-fns';
 import { MessageCircle, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import { dataTagErrorSymbol, useMutation } from '@tanstack/react-query';
 import { createLikeOnPost, deleteLike } from '../api/like';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import { useQuery } from '@tanstack/react-query';
-import { getLike } from '../api/like';
+import { getLikeOnPost } from '../api/like';
+import { useEffect } from 'react';
 function Post({ id, content, date, name, image, like, comment = 0 }) {
   const userToken = useContext(AuthContext);
   const [isLike, setIsLike] = useState(null);
   const [likeId, setLikeId] = useState(null);
+
   const navigate = useNavigate();
-  /*const { data: dataLike } = useQuery({
+  const { data: dataLike } = useQuery({
     queryKey: ['likePost', userToken, id],
-    queryFn: ,
+    queryFn: getLikeOnPost,
     enabled: !!userToken && !!id,
   });
-*/
-  const { mutate: addLikeMutation } = useMutation({
-    mutationFn: createLikeOnPost,
-    onError: (error) => {
-      console.log(error);
-    },
-    onSuccess: (data) => {
-      console.log('success like created');
-      setLikeId(data.like.id);
-      setIsLike(true);
-    },
-  });
 
-  const { mutate: addDeleteLikeMutation } = useMutation({
-    mutationFn: deleteLike,
-    onError: (error) => {
-      console.log(error);
-    },
-    onSuccess: () => {
-      console.log('success like delete');
-      setLikeId(null);
-      setIsLike(false);
-    },
-  });
+  const { mutate: addLikeMutation, isLoading: loadingLikeCreated } =
+    useMutation({
+      mutationFn: createLikeOnPost,
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: (data) => {
+        console.log('success like created');
+        setLikeId(data.like.id);
+        setIsLike(true);
+      },
+    });
+
+  const { mutate: addDeleteLikeMutation, isLoading: loadingLikeDelete } =
+    useMutation({
+      mutationFn: deleteLike,
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: () => {
+        console.log('success like delete');
+        setIsLike(false);
+      },
+    });
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (!isLike) {
-      addLikeMutation({
-        postId: id,
-        authorId: userToken,
-      });
+    if (isButtonDisabled) return;
 
-      return;
-    }
+    // Temporarily disable to prevent spamming
+    setIsLike(null);
 
-    addDeleteLikeMutation({
-      likeId: likeId,
-    });
+    setTimeout(() => {
+      if (!isLike) {
+        addLikeMutation({
+          postId: id,
+          authorId: userToken,
+        });
+      } else {
+        addDeleteLikeMutation({
+          likeId: likeId,
+        });
+      }
+    }, 500);
   };
+
+  const isButtonDisabled =
+    loadingLikeCreated || loadingLikeDelete || isLike === null;
+
+  useEffect(() => {
+    if (dataLike?.like.isLiked) {
+      setIsLike(true);
+    }
+    setLikeId(dataLike?.like.likeId);
+  }, [dataLike]);
 
   return (
     <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative">
@@ -90,7 +108,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
           <p>{comment}</p>
         </div>
         <div className="flex gap-0.5 hover:text-red-400">
-          <button onClick={handleClick}>
+          <button onClick={handleClick} disabled={isButtonDisabled}>
             <Heart
               size="20"
               strokeWidth="1.5"

@@ -1,8 +1,9 @@
 import axiosInstance from './axiosInstance';
 
-export const getLike = async ({ authorId }) => {
+export const getLikeOnPost = async ({ queryKey }) => {
   try {
-    const response = await axiosInstance.get(`/like/${authorId}'`);
+    const [, authorId, id] = queryKey;
+    const response = await axiosInstance.get(`/like/post/${id}/${authorId}`);
     return response.data;
   } catch (error) {
     if (error.response) {
@@ -12,11 +13,8 @@ export const getLike = async ({ authorId }) => {
     }
   }
 };
-
 export const createLikeOnPost = async ({ postId, authorId }) => {
   try {
-    console.log(postId);
-    console.log(authorId);
     const response = await axiosInstance.post(
       `/like/post/${postId}/${authorId}`
     );
