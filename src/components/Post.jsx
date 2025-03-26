@@ -1,7 +1,7 @@
-import { format, set } from 'date-fns';
+import { format } from 'date-fns';
 import { MessageCircle, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { dataTagErrorSymbol, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { createLikeOnPost, deleteLike } from '../api/like';
 import { useState } from 'react';
 import { useContext } from 'react';
@@ -14,6 +14,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
   const userToken = useContext(AuthContext);
   const [isLike, setIsLike] = useState(null);
   const [likeId, setLikeId] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(null);
   const queryClient = useQueryClient();
 
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
       onSuccess: (data) => {
         setLikeId(data.like.id);
         setIsLike(true);
+        setIsDisabled(false);
         queryClient.invalidateQueries(['allPost']);
       },
     });
@@ -44,6 +46,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
       },
       onSuccess: () => {
         setIsLike(false);
+        setIsDisabled(false);
         queryClient.invalidateQueries(['allPost']);
       },
     });
@@ -51,7 +54,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
   const handleClick = (e) => {
     e.preventDefault();
     if (isButtonDisabled) return;
-
+    setIsDisabled(true);
     setTimeout(() => {
       if (!isLike) {
         addLikeMutation({
@@ -66,7 +69,8 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
     }, 500);
   };
 
-  const isButtonDisabled = loadingLikeCreated || loadingLikeDelete;
+  const isButtonDisabled =
+    loadingLikeCreated || loadingLikeDelete || isDisabled;
 
   useEffect(() => {
     if (dataLike?.like.isLiked) {
