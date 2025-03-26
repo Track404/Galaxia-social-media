@@ -3,7 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { postUser } from '../api/user';
+import SuccessAlert from '../components/SuccessAlert';
+import ErrorAlert from '../components/ErrorAlert';
 function RegisterPage() {
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: '',
     email: '',
@@ -17,12 +21,19 @@ function RegisterPage() {
     mutationFn: postUser,
     onError: (error) => {
       if (error?.data?.errors) {
-        setValidationErrors(error.data.errors); // Store errors in state
+        setValidationErrors(error.data.errors);
+        setShowAlertError(true);
+        setTimeout(() => setShowAlertError(false), 10000); // Store errors in state
       }
     },
     onSuccess: () => {
       console.log('sucess');
       setValidationErrors(null);
+
+      setShowAlertSuccess(true);
+      setShowAlertError(false);
+      setTimeout(() => setShowAlertSuccess(false), 5000);
+
       setTimeout(() => {
         navigate('/login');
       }, 3000);
@@ -53,7 +64,15 @@ function RegisterPage() {
   };
   return (
     <>
-      <div className="md:flex   h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
+      <div className="md:flex    h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
+        <SuccessAlert
+          isVisible={showAlertSuccess}
+          message={'User successfuly created !'}
+        />
+        <ErrorAlert
+          isVisible={showAlertError}
+          validationErrors={validationErrors}
+        />
         <div className="flex md:bg-white md:text-gray-100 md:dark:bg-gray-800 items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
           <div className="flex gap-1 absolute top-2 left-2">
             <h1 className="text-4xl font-medium ">Galaxia</h1>
@@ -137,7 +156,7 @@ function RegisterPage() {
                       setUserInfo({ ...userInfo, password: e.target.value });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100 dark:text-black
                       ring-gray-400'`}
                   />
                 </div>
@@ -163,7 +182,7 @@ function RegisterPage() {
                       });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100 dark:text-black
                       ring-gray-400'`}
                   />
                 </div>
