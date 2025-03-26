@@ -44,6 +44,7 @@ function PostPage() {
     onError: (error) => {
       if (error?.data?.errors) {
         setValidationErrors(error.data.errors);
+
         const newErrors = {};
         error.data.errors.forEach((err) => {
           newErrors[err.path] = err.msg;

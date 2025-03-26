@@ -4,13 +4,17 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { LoginUser, LoginUserGithub } from '../api/auth';
+import SuccessAlert from '../components/SuccessAlert';
+import ErrorAlert from '../components/ErrorAlert';
 function LoginPage() {
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
   });
   const [validationErrors, setValidationErrors] = useState(null);
-  const [invalidInput, setInvalidInput] = useState(null);
+
   const navigate = useNavigate();
 
   // Basic login mutation
@@ -19,18 +23,17 @@ function LoginPage() {
     onError: (error) => {
       if (error?.data?.errors) {
         setValidationErrors(error.data.errors);
-        const newErrors = {};
-        error.data.errors.forEach((err) => {
-          newErrors[err.path] = err.msg;
-        });
-        setInvalidInput(newErrors);
-        console.log(invalidInput); // Store errors in state
+        setShowAlertError(true);
+        setTimeout(() => setShowAlertError(false), 10000);
       }
     },
     onSuccess: () => {
       console.log('success');
+      setShowAlertSuccess(true);
+      setShowAlertError(false);
+      setTimeout(() => setShowAlertSuccess(false), 5000);
       setValidationErrors(null);
-      setInvalidInput(null);
+
       setTimeout(() => {
         navigate('/home');
       }, 3000);
@@ -59,6 +62,14 @@ function LoginPage() {
   return (
     <>
       <div className="md:flex   h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
+        <SuccessAlert
+          isVisible={showAlertSuccess}
+          message={'Confirm Login !'}
+        />
+        <ErrorAlert
+          isVisible={showAlertError}
+          validationErrors={validationErrors}
+        />
         <div className="flex md:bg-white md:dark:text-gray-100 md:dark:bg-gray-800 items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
           <div className="flex gap-1 absolute top-2 left-2">
             <h1 className="text-4xl font-medium ">Galaxia</h1>
@@ -95,7 +106,7 @@ function LoginPage() {
                       setUserInfo({ ...userInfo, email: e.target.value });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100 dark:text-black
                       ring-gray-400'`}
                   />
                 </div>
@@ -117,7 +128,7 @@ function LoginPage() {
                       setUserInfo({ ...userInfo, password: e.target.value });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100 dark:text-black
                       ring-gray-400'`}
                   />
                 </div>
