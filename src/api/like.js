@@ -47,7 +47,7 @@ export const createLikeOnComment = async ({ commentId, authorId }) => {
 
 export const deleteLike = async ({ likeId }) => {
   try {
-    const response = await axiosInstance.delete(`/like/${likeId}'`);
+    const response = await axiosInstance.delete(`/like/${likeId}`);
     return response.data;
   } catch (error) {
     if (error.response) {

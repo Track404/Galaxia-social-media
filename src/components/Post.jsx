@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, set } from 'date-fns';
 import { MessageCircle, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -11,6 +11,7 @@ import { getLike } from '../api/like';
 function Post({ id, content, date, name, image, like, comment = 0 }) {
   const userToken = useContext(AuthContext);
   const [isLike, setIsLike] = useState(null);
+  const [likeId, setLikeId] = useState(null);
   const navigate = useNavigate();
   /*const { data: dataLike } = useQuery({
     queryKey: ['likePost', userToken, id],
@@ -23,19 +24,12 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
     onError: (error) => {
       console.log(error);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       console.log('success like created');
+      setLikeId(data.like.id);
       setIsLike(true);
     },
   });
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    addLikeMutation({
-      postId: id,
-      authorId: userToken,
-    });
-  };
 
   const { mutate: addDeleteLikeMutation } = useMutation({
     mutationFn: deleteLike,
@@ -43,18 +37,28 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
       console.log(error);
     },
     onSuccess: () => {
-      console.log('success like created');
-      setIsLike(true);
+      console.log('success like delete');
+      setLikeId(null);
+      setIsLike(false);
     },
   });
 
-  const handleDeleteClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    addLikeMutation({
-      postId: id,
-      authorId: userToken,
+    if (!isLike) {
+      addLikeMutation({
+        postId: id,
+        authorId: userToken,
+      });
+
+      return;
+    }
+
+    addDeleteLikeMutation({
+      likeId: likeId,
     });
   };
+
   return (
     <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative">
       <div
