@@ -106,9 +106,10 @@ function PostPage() {
     });
   };
   return (
-    <div className="flex ">
+    <div className="flex relative ">
       <Border />
       <Navbar pageName="Post" />
+
       <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
         <div className=" flex  gap-3 shadow-xs dark:border-b-1 white p-3">
           <div className="flex flex-col gap-3 ">

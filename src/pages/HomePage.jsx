@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar';
 import Post from '../components/Post';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
-
+import ErrorAlert from '../components/ErrorAlert';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
 import { getAllPosts } from '../api/post';
@@ -12,7 +12,7 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 function HomePage() {
   const userToken = useContext(AuthContext);
-
+  const [showAlert, setShowAlert] = useState(false);
   const [postInfo, setPostInfo] = useState({
     title: '',
     content: '',
@@ -70,11 +70,22 @@ function HomePage() {
       userId: userToken,
     });
   };
+
+  const handleUpdate = () => {
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 5000); // Hide after 3 seconds
+  };
   return (
     <div className="flex ">
       <Border />
       <Navbar pageName="Home" image={dataUser?.data.user.imageUrl} />
       <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
+        <div>
+          <button onClick={handleUpdate} className="p-2 bg-blue-500 text-white">
+            Update Info
+          </button>
+          <ErrorAlert isVisible={showAlert} />
+        </div>
         <h2 className="p-2 pl-4 border-b-2 bg-gray-50 dark:bg-stone-800 dark:text-white  border-emerald-300 text-2xl font-bold ">
           Hi {dataUser && dataUser.data.user.name} !
         </h2>
