@@ -28,6 +28,7 @@ function HomePage() {
   const { data: allPostsData } = useQuery({
     queryKey: ['allPosts'],
     queryFn: getAllPosts,
+    keepPreviousData: true,
     enabled: !!userToken,
   });
 

@@ -9,10 +9,12 @@ import { AuthContext } from '../context/authContext';
 import { useQuery } from '@tanstack/react-query';
 import { getLikeOnPost } from '../api/like';
 import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 function Post({ id, content, date, name, image, like, comment = 0 }) {
   const userToken = useContext(AuthContext);
   const [isLike, setIsLike] = useState(null);
   const [likeId, setLikeId] = useState(null);
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
   const { data: dataLike } = useQuery({
@@ -28,9 +30,9 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
         console.log(error);
       },
       onSuccess: (data) => {
-        console.log('success like created');
         setLikeId(data.like.id);
         setIsLike(true);
+        queryClient.invalidateQueries(['allPost']);
       },
     });
 
@@ -41,17 +43,14 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
         console.log(error);
       },
       onSuccess: () => {
-        console.log('success like delete');
         setIsLike(false);
+        queryClient.invalidateQueries(['allPost']);
       },
     });
 
   const handleClick = (e) => {
     e.preventDefault();
     if (isButtonDisabled) return;
-
-    // Temporarily disable to prevent spamming
-    setIsLike(null);
 
     setTimeout(() => {
       if (!isLike) {
@@ -67,8 +66,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
     }, 500);
   };
 
-  const isButtonDisabled =
-    loadingLikeCreated || loadingLikeDelete || isLike === null;
+  const isButtonDisabled = loadingLikeCreated || loadingLikeDelete;
 
   useEffect(() => {
     if (dataLike?.like.isLiked) {
@@ -103,17 +101,24 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
         </div>
       </div>
       <div className="absolute bottom-2 right-20 flex gap-6  p-1 pl-5 ">
-        <div className="flex gap-0.5 hover:text-emerald-400 ">
+        <div
+          onClick={() => {
+            navigate(`/post/${id}`);
+          }}
+          className="flex gap-0.5 hover:text-emerald-400 "
+        >
           <MessageCircle size="20" strokeWidth="1.5" />
           <p>{comment}</p>
         </div>
-        <div className="flex gap-0.5 hover:text-red-400">
+        <div
+          className={
+            isLike
+              ? 'text-red-600 flex gap-0.5 hover:text-red-400'
+              : 'text-white-400 flex gap-0.5 hover:text-red-400'
+          }
+        >
           <button onClick={handleClick} disabled={isButtonDisabled}>
-            <Heart
-              size="20"
-              strokeWidth="1.5"
-              className={isLike ? 'text-red-700' : 'text-white-400'}
-            />
+            <Heart size="20" strokeWidth="1.5" />
           </button>
 
           <p>{like}</p>
