@@ -94,7 +94,7 @@ export default function DialogNewPost({ open, onClose }) {
                 onChange={(e) => {
                   setPostInfo({ ...postInfo, content: e.target.value });
                 }}
-                className="w-full p-3 border resize-none border-gray-300 dark:bg-stone-800 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
+                className="w-full p-3 border resize-none border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
                 placeholder="What's on your mind today..."
               ></textarea>
 

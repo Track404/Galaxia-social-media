@@ -80,13 +80,13 @@ function RegisterPage() {
           isVisible={showAlertError}
           validationErrors={validationErrors}
         />
-        <div className="flex md:bg-white md:text-gray-100 md:dark:bg-gray-800 items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
+        <div className="flex md:bg-white md:text-black  items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
           <div className="flex gap-1 absolute top-2 left-2">
             <h1 className="text-4xl font-medium ">Galaxia</h1>
             <h1 className="text-4xl font-medium text-emerald-400 ">Register</h1>
           </div>
 
-          <div className="flex flex-col mt-10 md:justify-center md:dark:text-gray-100   relative">
+          <div className="flex flex-col mt-10 md:justify-center   relative">
             <img src={rocket} alt="here" width="400" className="md:hidden" />
             <div className=" hidden md:block text-center">
               <h1 className="text-7xl font-semibold xl:text-8xl">
@@ -118,7 +118,7 @@ function RegisterPage() {
                       setUserInfo({ ...userInfo, name: e.target.value });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white 
                       ${
                         invalidInput?.name
                           ? 'ring-red-500 focus:outline-red-500'
@@ -144,7 +144,7 @@ function RegisterPage() {
                       setUserInfo({ ...userInfo, email: e.target.value });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white 
                       ${
                         invalidInput?.email
                           ? 'ring-red-500 focus:outline-red-500'
@@ -171,7 +171,7 @@ function RegisterPage() {
                       setUserInfo({ ...userInfo, password: e.target.value });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100 dark:text-black
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white 
                       ${
                         invalidInput?.password || invalidInput?.confirmPassword
                           ? 'ring-red-500 focus:outline-red-500'
@@ -201,7 +201,7 @@ function RegisterPage() {
                       });
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100 dark:text-black
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white 
                       ${
                         invalidInput?.confirmPassword
                           ? 'ring-red-500 focus:outline-red-500'
@@ -220,7 +220,7 @@ function RegisterPage() {
                 </div>
               </button>
             </form>
-            <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500 md:dark:text-gray-100 ">
+            <div className="flex justify-center   gap-1 text-sm mt-2 mb-2 font-light text-gray-500  ">
               <p>Already have an account? </p>
               <Link to="/login" className="text-emerald-400 ">
                 Login

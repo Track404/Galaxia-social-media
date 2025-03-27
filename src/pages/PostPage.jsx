@@ -120,7 +120,7 @@ function PostPage() {
         isVisible={showAlertError}
         validationErrors={validationErrors}
       />
-      <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
+      <div className="w-full h-screen overflow-auto shadow-xl ">
         <div className=" flex  gap-3 shadow-xs dark:border-b-1 white p-3">
           <div className="flex flex-col gap-3 ">
             <div className="flex justify-between  ">
@@ -196,7 +196,7 @@ function PostPage() {
               onChange={(e) => {
                 setCommentInfo({ ...commentInfo, content: e.target.value });
               }}
-              className="w-full p-3 border resize-none border-gray-300 dark:bg-stone-800 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
+              className="w-full p-3 border resize-none border-gray-300  rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
               placeholder="Post your reply..."
             ></textarea>
 

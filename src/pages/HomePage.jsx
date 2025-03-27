@@ -47,6 +47,7 @@ function HomePage() {
         title: '',
         content: '',
       });
+      setValidationErrors(null);
       setShowAlertSuccess(true);
       setShowAlertError(false);
       setTimeout(() => setShowAlertSuccess(false), 5000);
@@ -83,8 +84,8 @@ function HomePage() {
         isVisible={showAlertError}
         validationErrors={validationErrors}
       />
-      <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
-        <h2 className="p-2 pl-4 border-b-2 bg-gray-50 dark:bg-stone-800 dark:text-white  border-emerald-300 text-2xl font-bold ">
+      <div className="w-full h-screen overflow-auto shadow-xl  ">
+        <h2 className="p-2 pl-4 border-b-2 bg-gray-50   border-emerald-300 text-2xl font-bold ">
           Hi {dataUser && dataUser.data.user.name} !
         </h2>
         <div className=" flex items-center gap-3 shadow-sm  p-3 border-b-1">
@@ -104,7 +105,7 @@ function HomePage() {
               onChange={(e) => {
                 setPostInfo({ ...postInfo, content: e.target.value });
               }}
-              className="w-full p-3 border resize-none border-gray-300 dark:bg-stone-800 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
+              className="w-full p-3 border resize-none border-gray-300  rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
               placeholder="Write something..."
             ></textarea>
 

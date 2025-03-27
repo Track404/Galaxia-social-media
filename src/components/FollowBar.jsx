@@ -19,7 +19,7 @@ function FollowBar() {
     enabled: !!searchTerm,
   });
   return (
-    <div className="hidden lg:flex lg:flex-col items-center  pt-6 pl-4 pr-4   gap-8 lg:min-w-[30vw] bg-emerald-50 dark:bg-emerald-500 drop-shadow-sm  relative  ">
+    <div className="hidden lg:flex lg:flex-col items-center  pt-6 pl-4 pr-4   gap-8 lg:min-w-[30vw] bg-emerald-100  drop-shadow-sm  relative  ">
       <form className="form relative  ">
         <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1 ">
           <svg
@@ -29,7 +29,7 @@ function FollowBar() {
             xmlns="http://www.w3.org/2000/svg"
             role="img"
             aria-labelledby="search"
-            className="w-5 h-5 text-gray-700 dark:text-white"
+            className="w-5 h-5 text-gray-700 "
           >
             <path
               d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
@@ -41,7 +41,7 @@ function FollowBar() {
           </svg>
         </button>
         <input
-          className="input bg-white dark:bg-stone-800 dark:text-white rounded-full px-8 xl:w-[20vw]  2xl:w-md  py-2 border-2 border-transparent focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-50 placeholder-gray-400 dark:placeholder-white transition-all duration-300 shadow-md"
+          className="input bg-white  rounded-full px-8 xl:w-[20vw]  2xl:w-md  py-2 border-2 border-transparent focus:outline-none focus:border-emerald-400  placeholder-gray-400  transition-all duration-300 shadow-md"
           placeholder="Search..."
           required=""
           value={searchTerm}
@@ -60,7 +60,7 @@ function FollowBar() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5 text-gray-700 dark:text-white"
+            className="w-5 h-5 text-gray-700 "
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -73,7 +73,7 @@ function FollowBar() {
           </svg>
         </button>
       </form>
-      <div className="bg-white dark:bg-stone-800 dark:text-white absolute z-10 top-17 w-[28vw]  rounded-2xl  ">
+      <div className="bg-white  absolute z-10 top-17 w-[28vw]  rounded-2xl  ">
         {searchData &&
           searchData.data.users.map((user) => (
             <UserFollow
@@ -114,7 +114,7 @@ function FollowBar() {
         )}
       </div>
 
-      <div className="bg-white dark:bg-stone-800 dark:text-white min-w-65 2xl:min-w-[20vw] max-w-full shadow-md rounded-xl p-3 text-center">
+      <div className="bg-white  min-w-65 2xl:min-w-[20vw] max-w-full shadow-md rounded-xl p-3 text-center">
         <h2 className="text-2xl font-medium mb-2">Who to follow</h2>
         {data &&
           data.data.user.map((user) => (

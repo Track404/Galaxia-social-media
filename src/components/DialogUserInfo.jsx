@@ -140,7 +140,7 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
                     });
                   }}
                   className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white 
                       ${
                         invalidInput?.name
                           ? 'ring-red-500 focus:outline-red-500'
@@ -169,7 +169,7 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
                     });
                   }}
                   className={`block w-75 h-10 rounded-md mb-5 py-1.5 px-2 ring-1 ring-inset 
-                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100
+                      focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white 
                       ${
                         invalidInput?.email
                           ? 'ring-red-500 focus:outline-red-500'
@@ -191,7 +191,6 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
           </form>
         </div>
       </Dialog>
-      ;
     </>
   );
 }
