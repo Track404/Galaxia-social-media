@@ -2,12 +2,12 @@ import Navbar from '../components/Navbar';
 import Post from '../components/Post';
 import FollowBar from '../components/FollowBar';
 import Border from '../components/border';
-import ErrorAlert from '../components/ErrorAlert';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
 import { getAllPosts } from '../api/post';
 import { createPost } from '../api/post';
-
+import SuccessAlert from '../components/SuccessAlert';
+import ErrorAlert from '../components/ErrorAlert';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 function HomePage() {
@@ -17,7 +17,9 @@ function HomePage() {
     content: '',
   });
   const [validationErrors, setValidationErrors] = useState(null);
-  const [invalidInput, setInvalidInput] = useState(null);
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
+
   const { data: dataUser } = useQuery({
     queryKey: ['user', userToken],
     queryFn: getUniqueUser,
@@ -36,12 +38,8 @@ function HomePage() {
     onError: (error) => {
       if (error?.data?.errors) {
         setValidationErrors(error.data.errors);
-        const newErrors = {};
-        error.data.errors.forEach((err) => {
-          newErrors[err.path] = err.msg;
-        });
-        setInvalidInput(newErrors);
-        console.log(invalidInput); // Store errors in state
+        setShowAlertError(true);
+        setTimeout(() => setShowAlertError(false), 10000);
       }
     },
     onSuccess: () => {
@@ -49,6 +47,9 @@ function HomePage() {
         title: '',
         content: '',
       });
+      setShowAlertSuccess(true);
+      setShowAlertError(false);
+      setTimeout(() => setShowAlertSuccess(false), 5000);
 
       console.log('Post created succesfully');
     },
@@ -71,9 +72,17 @@ function HomePage() {
   };
 
   return (
-    <div className="flex ">
+    <div className="flex relative ">
       <Border />
       <Navbar pageName="Home" image={dataUser?.data.user.imageUrl} />
+      <SuccessAlert
+        isVisible={showAlertSuccess}
+        message={'Post has been created !'}
+      />
+      <ErrorAlert
+        isVisible={showAlertError}
+        validationErrors={validationErrors}
+      />
       <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
         <h2 className="p-2 pl-4 border-b-2 bg-gray-50 dark:bg-stone-800 dark:text-white  border-emerald-300 text-2xl font-bold ">
           Hi {dataUser && dataUser.data.user.name} !
