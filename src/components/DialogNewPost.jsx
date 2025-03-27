@@ -1,18 +1,21 @@
 import { Dialog } from '@mui/material';
 
-import rocket from '../assets/loginSvg.svg';
 import { useState } from 'react';
 import { createPost } from '../api/post';
 import { useMutation } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
-import { useQueryClient } from '@tanstack/react-query';
+
 import { CircleX } from 'lucide-react';
+import SuccessAlert from '../components/SuccessAlert';
+import ErrorAlert from '../components/ErrorAlert';
+
 export default function DialogNewPost({ open, onClose }) {
   const userToken = useContext(AuthContext);
   const [validationErrors, setValidationErrors] = useState(null);
-  const [invalidInput, setInvalidInput] = useState(null);
-  const queryClient = useQueryClient();
+
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
   const [postInfo, setPostInfo] = useState({
     title: '',
     content: '',
@@ -23,12 +26,8 @@ export default function DialogNewPost({ open, onClose }) {
     onError: (error) => {
       if (error?.data?.errors) {
         setValidationErrors(error.data.errors);
-        const newErrors = {};
-        error.data.errors.forEach((err) => {
-          newErrors[err.path] = err.msg;
-        });
-        setInvalidInput(newErrors);
-        console.log(invalidInput); // Store errors in state
+        setShowAlertError(true);
+        setTimeout(() => setShowAlertError(false), 10000);
       }
     },
     onSuccess: () => {
@@ -36,6 +35,10 @@ export default function DialogNewPost({ open, onClose }) {
         title: '',
         content: '',
       });
+      setValidationErrors(null);
+      setShowAlertSuccess(true);
+      setShowAlertError(false);
+      setTimeout(() => setShowAlertSuccess(false), 5000);
       onClose();
 
       console.log('Post created succesfully');
@@ -59,6 +62,14 @@ export default function DialogNewPost({ open, onClose }) {
   };
   return (
     <>
+      <SuccessAlert
+        isVisible={showAlertSuccess}
+        message={'Post has been created !'}
+      />
+      <ErrorAlert
+        isVisible={showAlertError}
+        validationErrors={validationErrors}
+      />
       <Dialog open={open} onClose={onClose}>
         <div className="flex flex-col items-center p-6 pt-8 bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl shadow-xl relative">
           <CircleX
@@ -100,7 +111,6 @@ export default function DialogNewPost({ open, onClose }) {
           </div>
         </div>
       </Dialog>
-      ;
     </>
   );
 }
