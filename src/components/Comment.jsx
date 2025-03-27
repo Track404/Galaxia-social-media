@@ -79,7 +79,7 @@ function Comment({ id, content, date, name, image, like }) {
     setLikeId(dataLike?.like.likeId);
   }, [dataLike]);
   return (
-    <div className=" flex items-center gap-3 shadow-xs dark:border-b-1 white p-3 relative">
+    <div className=" flex items-center gap-3 shadow-sm  white p-3 relative">
       <div className="flex items-start gap-2">
         <img
           src={image}

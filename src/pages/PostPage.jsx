@@ -14,10 +14,12 @@ import { format } from 'date-fns';
 import { useState } from 'react';
 import SuccessAlert from '../components/SuccessAlert';
 import ErrorAlert from '../components/ErrorAlert';
+import Post from '../components/Post';
 import { createFollow, getFollowPairs } from '../api/follow';
 
 import { createComment } from '../api/comment';
 import { useQueryClient } from '@tanstack/react-query';
+import { div } from 'framer-motion/client';
 function PostPage() {
   const userToken = useContext(AuthContext);
   const [commentInfo, setCommentInfo] = useState({
@@ -120,9 +122,36 @@ function PostPage() {
         isVisible={showAlertError}
         validationErrors={validationErrors}
       />
-      <div className="w-full h-screen overflow-auto shadow-xl ">
-        <div className=" flex  gap-3 shadow-xs dark:border-b-1 white p-3">
-          <div className="flex flex-col gap-3 ">
+      <div className="w-full h-screen overflow-auto shadow-xl pt-2 ">
+        <div className=" flex  gap-3 white relative ">
+          {dataPost && (
+            <Post
+              id={dataPost.post.id}
+              content={dataPost.post.content}
+              name={dataPost.post.author.name}
+              date={dataPost.post.createdAt}
+              image={dataPost.post.author.imageUrl}
+              like={dataPost.post._count.Likes}
+            />
+          )}
+          {userToken !== dataPost?.post.author.id && (
+            <>
+              <div className="absolute right-3 top-2">
+                <button
+                  type="submit"
+                  onClick={handleClickFollow}
+                  disabled={followDisabled || dataFollowing?.follow}
+                  className="self-end  w-20 mb-5 disabled:opacity-50  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                >
+                  <span className="text-md">Follow</span>
+                  <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                    <div className="relative h-full w-10 bg-white/20"></div>
+                  </div>
+                </button>
+              </div>
+            </>
+          )}
+          {/*<div className="flex flex-col gap-3 ">
             <div className="flex justify-between  ">
               <div className="flex gap-2  items-center ">
                 <img
@@ -140,19 +169,8 @@ function PostPage() {
                   </h2>
                 </div>
               </div>
-              {userToken !== dataPost?.post.author.id && (
-                <button
-                  type="submit"
-                  onClick={handleClickFollow}
-                  disabled={followDisabled || dataFollowing?.follow}
-                  className="self-end w-20 mb-5 disabled:opacity-50  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
-                >
-                  <span className="text-md">Follow</span>
-                  <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
-                    <div className="relative h-full w-10 bg-white/20"></div>
-                  </div>
-                </button>
-              )}
+
+              
             </div>
 
             <div>
@@ -164,18 +182,19 @@ function PostPage() {
                 {dataPost && format(dataPost?.post.createdAt, ' MMMM do')}
               </h3>
             </div>
-          </div>
+            <div className=" flex justify-end gap-6  p-1 pl-5  ">
+              <div className="flex  ">
+                <MessageCircle size="20" strokeWidth="1.5" />
+                <p>{dataPost?.post._count.Comments}</p>
+              </div>
+              <div className="flex">
+                <Heart size="20" strokeWidth="1.5" />
+                <p>{dataPost?.post._count.Likes}</p>
+              </div>
+            </div>
+          </div>*/}
         </div>
-        <div className=" flex gap-6 border-b-1 p-1 pl-5 ">
-          <div className="flex  ">
-            <MessageCircle size="20" strokeWidth="1.5" />
-            <p>{dataPost?.post._count.Comments}</p>
-          </div>
-          <div className="flex">
-            <Heart size="20" strokeWidth="1.5" />
-            <p>{dataPost?.post._count.Likes}</p>
-          </div>
-        </div>
+
         <h2 className="text-2xl font-medium p-2 border-b-1 border-emerald-500">
           Comments
         </h2>

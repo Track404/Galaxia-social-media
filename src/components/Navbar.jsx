@@ -49,7 +49,7 @@ function Navbar({ pageName, image }) {
         }}
       />
       {LogoutUserOpen && (
-        <div className="flex flex-col align-middle gap-2 p-6 w-40  bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl shadow-xl z-[9999] fixed bottom-20 left-7 ">
+        <div className="flex flex-col items-center  gap-2 p-6 w-40 xl:w-50   bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl shadow-xl z-[9999] fixed bottom-20 left-7 xl:left-[2vw] xl:bottom-26 2xl:left-[9vw] ">
           <button
             onClick={handleLogout}
             type="button"
@@ -144,12 +144,12 @@ function Navbar({ pageName, image }) {
             </h2>
           </div>
         </div>
-        <div className="absolute bottom-5 xl:border-t-1 pt-3">
+        <div className="absolute bottom-5 xl:left-10  pt-3">
           <div
             onClick={() => {
               setLogoutUserOpen(!LogoutUserOpen);
             }}
-            className="flex gap-3 items-center "
+            className="flex gap-3 items-center hover:text-emerald-500   "
           >
             <img
               src={image}
@@ -157,12 +157,7 @@ function Navbar({ pageName, image }) {
               width="50"
               alt=""
             />
-            <h2 className="hidden xl:block text-2xl font-medium">Username</h2>
-            <Ellipsis
-              size="60"
-              strokeWidth="1.5"
-              className="ml-5 hover:text-emerald-400  p-4 hidden xl:block"
-            />
+            <h2 className="hidden xl:block text-3xl font-medium">Username</h2>
           </div>
         </div>
       </nav>

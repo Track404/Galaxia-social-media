@@ -80,7 +80,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
   }, [dataLike]);
 
   return (
-    <div className=" flex items-center gap-3 shadow-xs  white p-3 relative">
+    <div className=" flex items-center gap-3 shadow-sm  white p-3 w-full relative">
       <div
         onClick={() => {
           navigate(`/post/${id}`);
