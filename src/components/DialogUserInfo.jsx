@@ -13,9 +13,13 @@ import { useMutation } from '@tanstack/react-query';
 import { updateUser } from '../api/user';
 import { useQueryClient } from '@tanstack/react-query';
 import { CircleX } from 'lucide-react';
+import SuccessAlert from './SuccessAlert';
+import ErrorAlert from './ErrorAlert';
 export default function DialogUserChange({ open, onClose, userInfo }) {
   const [validationErrors, setValidationErrors] = useState(null);
   const [invalidInput, setInvalidInput] = useState(null);
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
   const queryClient = useQueryClient();
   const [updatedUserInfo, setUpdatedUserInfo] = useState({
     id: '',
@@ -45,10 +49,17 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
           newErrors[err.path] = err.msg;
         });
         setInvalidInput(newErrors);
+        setShowAlertError(true);
+        setTimeout(() => setShowAlertError(false), 10000);
         console.log(invalidInput); // Store errors in state
       }
     },
     onSuccess: () => {
+      setValidationErrors(null);
+      setInvalidInput(null);
+      setShowAlertSuccess(true);
+      setShowAlertError(false);
+      setTimeout(() => setShowAlertSuccess(false), 5000);
       queryClient.invalidateQueries(['user']);
       onClose();
       console.log('user updated succesfully');
@@ -61,6 +72,8 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
       console.log('Update user info is incomplete');
       return;
     }
+    setValidationErrors(null);
+    setInvalidInput(null);
     addUpdateUserMutation({
       data: {
         name: updatedUserInfo.name,
@@ -71,6 +84,14 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
   };
   return (
     <>
+      <SuccessAlert
+        isVisible={showAlertSuccess}
+        message={'User info has been updated !'}
+      />
+      <ErrorAlert
+        isVisible={showAlertError}
+        validationErrors={validationErrors}
+      />
       <Dialog open={open} onClose={onClose}>
         <div className="flex flex-col items-center p-6 pt-8 bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl shadow-xl relative">
           <CircleX
@@ -109,8 +130,8 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
               <div className="mt-2 ">
                 <input
                   type="text"
-                  id="username"
-                  name="username"
+                  id="name"
+                  name="name"
                   value={updatedUserInfo.name}
                   onChange={(e) => {
                     setUpdatedUserInfo({
@@ -120,7 +141,11 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
                   }}
                   className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
                       focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
-                      ring-gray-400'`}
+                      ${
+                        invalidInput?.name
+                          ? 'ring-red-500 focus:outline-red-500'
+                          : 'ring-gray-400'
+                      }`}
                 />
               </div>
             </div>
@@ -140,12 +165,16 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
                   onChange={(e) => {
                     setUpdatedUserInfo({
                       ...updatedUserInfo,
-                      name: e.target.value,
+                      email: e.target.value,
                     });
                   }}
                   className={`block w-75 h-10 rounded-md mb-5 py-1.5 px-2 ring-1 ring-inset 
                       focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100
-                      ring-gray-400'`}
+                      ${
+                        invalidInput?.email
+                          ? 'ring-red-500 focus:outline-red-500'
+                          : 'ring-gray-400'
+                      }`}
                 />
               </div>
             </div>
