@@ -53,6 +53,9 @@ function FollowBar() {
         />
         <button
           type="reset"
+          onClick={() => {
+            setSearchTerm('');
+          }}
           className="  absolute right-3 -translate-y-1/2 top-1/2 p-1  "
         >
           <svg

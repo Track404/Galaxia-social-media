@@ -1,4 +1,5 @@
 import { Alert } from '@mui/material';
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 
 function SuccessAlert({ isVisible, message }) {
