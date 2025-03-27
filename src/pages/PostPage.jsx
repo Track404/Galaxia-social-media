@@ -12,6 +12,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import { format } from 'date-fns';
 import { useState } from 'react';
+import SuccessAlert from '../components/SuccessAlert';
+import ErrorAlert from '../components/ErrorAlert';
 import { createFollow, getFollowPairs } from '../api/follow';
 
 import { createComment } from '../api/comment';
@@ -24,7 +26,8 @@ function PostPage() {
   });
   const [followDisabled, setFollowDisabled] = useState(false);
   const [validationErrors, setValidationErrors] = useState(null);
-  const [invalidInput, setInvalidInput] = useState(null);
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [showAlertError, setShowAlertError] = useState(false);
   const queryClient = useQueryClient();
   const { data: dataUser } = useQuery({
     queryKey: ['user', userToken],
@@ -44,13 +47,8 @@ function PostPage() {
     onError: (error) => {
       if (error?.data?.errors) {
         setValidationErrors(error.data.errors);
-
-        const newErrors = {};
-        error.data.errors.forEach((err) => {
-          newErrors[err.path] = err.msg;
-        });
-        setInvalidInput(newErrors);
-        console.log(invalidInput); // Store errors in state
+        setShowAlertError(true);
+        setTimeout(() => setShowAlertError(false), 10000);
       }
     },
     onSuccess: () => {
@@ -58,6 +56,10 @@ function PostPage() {
         title: '',
         content: '',
       });
+      setValidationErrors(null);
+      setShowAlertSuccess(true);
+      setShowAlertError(false);
+      setTimeout(() => setShowAlertSuccess(false), 5000);
       queryClient.invalidateQueries(['uniquePost']);
       console.log('Comment created succesfully');
     },
@@ -109,8 +111,15 @@ function PostPage() {
   return (
     <div className="flex relative ">
       <Border />
-      <Navbar pageName="Post" />
-
+      <Navbar pageName="Post" image={dataUser?.data.user.imageUrl} />
+      <SuccessAlert
+        isVisible={showAlertSuccess}
+        message={'Comment has been created !'}
+      />
+      <ErrorAlert
+        isVisible={showAlertError}
+        validationErrors={validationErrors}
+      />
       <div className="w-full h-screen overflow-auto shadow-xl dark:bg-stone-800 dark:text-white ">
         <div className=" flex  gap-3 shadow-xs dark:border-b-1 white p-3">
           <div className="flex flex-col gap-3 ">
@@ -179,8 +188,8 @@ function PostPage() {
           />
           <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
             <textarea
-              name="post"
-              id="post"
+              name="comment"
+              id="comment"
               rows="3"
               cols="100"
               value={commentInfo.content}
