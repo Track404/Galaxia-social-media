@@ -85,7 +85,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
         onClick={() => {
           navigate(`/post/${id}`);
         }}
-        className="flex items-start gap-2"
+        className="flex items-start gap-2 w-full"
       >
         <img
           src={image}
