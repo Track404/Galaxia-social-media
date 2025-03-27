@@ -43,3 +43,16 @@ export async function checkUserAuthentication() {
     }
   }
 }
+
+export const LogoutUser = async () => {
+  try {
+    const response = await axiosInstance.post(`/logout`);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw error.response;
+    } else {
+      throw new Error('Something went wrong');
+    }
+  }
+};

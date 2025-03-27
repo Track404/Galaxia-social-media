@@ -7,10 +7,39 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import DialogNewPost from './DialogNewPost';
+import { useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { LogoutUser } from '../api/auth';
 function Navbar({ pageName, image }) {
   const userToken = useContext(AuthContext);
+  const queryClient = useQueryClient();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [LogoutUserOpen, setLogoutUserOpen] = useState(false);
   const navigate = useNavigate();
+
+  const { mutate: addLogoutMutation } = useMutation({
+    mutationFn: LogoutUser,
+
+    onSuccess: () => {
+      console.log('Logout sent successfully');
+
+      queryClient.invalidateQueries([
+        'userInfo',
+        'chats',
+        'LastChatDetails,allUsers',
+      ]);
+      navigate('/login');
+    },
+
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    addLogoutMutation();
+  };
   return (
     <>
       <DialogNewPost
@@ -19,6 +48,33 @@ function Navbar({ pageName, image }) {
           setDialogOpen(!dialogOpen);
         }}
       />
+      {LogoutUserOpen && (
+        <div className="flex flex-col align-middle gap-2 p-6 w-40  bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl shadow-xl z-[9999] fixed bottom-20 left-7 ">
+          <button
+            onClick={handleLogout}
+            type="button"
+            className="self-end w-30    relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+          >
+            <span className="text-md">Logout</span>
+            <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+              <div className="relative h-full w-10 bg-white/20"></div>
+            </div>
+          </button>
+          <button
+            onClick={() => {
+              navigate(`/profile/${userToken}`);
+            }}
+            type="button"
+            className="self-end w-30   relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+          >
+            <span className="text-md">View Profile</span>
+            <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+              <div className="relative h-full w-10 bg-white/20"></div>
+            </div>
+          </button>
+        </div>
+      )}
+
       <nav className="flex flex-col  items-center align-middle bg-emerald-50 dark:bg-emerald-600 h-screen p-2 pl-4 pr-4 lg:pl-8 lg:pr-8 min-w-[10vw] max-w-[25vw] xl:min-w-[20vw] drop-shadow-sm  ">
         <div className="flex flex-col xl:flex-row xl:gap-1 items-center   mb-6 xl:mb-10 ">
           <h1 className="text-sm  md:text-2xl xl:text-4xl 2xl:text-5xl  font-semibold ">
@@ -89,12 +145,14 @@ function Navbar({ pageName, image }) {
           </div>
         </div>
         <div className="absolute bottom-5 xl:border-t-1 pt-3">
-          <div className="flex gap-3 items-center ">
+          <div
+            onClick={() => {
+              setLogoutUserOpen(!LogoutUserOpen);
+            }}
+            className="flex gap-3 items-center "
+          >
             <img
               src={image}
-              onClick={() => {
-                navigate(`/profile/${userToken}`);
-              }}
               className="border-1  dark:border-emerald-50 bg-white dark:bg-stone-800 rounded-full hover:border-emerald-400 xl:hover:border-black hover:scale-100 md:hover:scale-130 md:scale-120 active:scale-110 md:active:scale-120 xl:active:scale-120 xl:hover:scale-120"
               width="50"
               alt=""
