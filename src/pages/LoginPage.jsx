@@ -53,6 +53,7 @@ function LoginPage() {
       return;
     }
     setValidationErrors(null);
+    setInvalidInput(null);
     addUserMutation({
       data: {
         email: userInfo.email,

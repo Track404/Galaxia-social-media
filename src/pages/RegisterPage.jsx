@@ -15,6 +15,7 @@ function RegisterPage() {
     confirmPassword: '',
   });
   const [validationErrors, setValidationErrors] = useState(null);
+  const [invalidInput, setInvalidInput] = useState(null);
   const navigate = useNavigate();
 
   const { mutate: addUserMutation } = useMutation({
@@ -22,6 +23,11 @@ function RegisterPage() {
     onError: (error) => {
       if (error?.data?.errors) {
         setValidationErrors(error.data.errors);
+        const newErrors = {};
+        error.data.errors.forEach((err) => {
+          newErrors[err.path] = err.msg;
+        });
+        setInvalidInput(newErrors);
         setShowAlertError(true);
         setTimeout(() => setShowAlertError(false), 10000); // Store errors in state
       }
@@ -29,7 +35,7 @@ function RegisterPage() {
     onSuccess: () => {
       console.log('sucess');
       setValidationErrors(null);
-
+      setInvalidInput(null);
       setShowAlertSuccess(true);
       setShowAlertError(false);
       setTimeout(() => setShowAlertSuccess(false), 5000);
@@ -53,6 +59,7 @@ function RegisterPage() {
       return;
     }
     setValidationErrors(null);
+    setInvalidInput(null);
     addUserMutation({
       data: {
         name: userInfo.name,
@@ -112,7 +119,11 @@ function RegisterPage() {
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
                       focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100
-                      ring-gray-400'`}
+                      ${
+                        invalidInput?.name
+                          ? 'ring-red-500 focus:outline-red-500'
+                          : 'ring-gray-400'
+                      }`}
                   />
                 </div>
               </div>
@@ -134,7 +145,11 @@ function RegisterPage() {
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
                       focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85  bg-white dark:bg-gray-100
-                      ring-gray-400'`}
+                      ${
+                        invalidInput?.email
+                          ? 'ring-red-500 focus:outline-red-500'
+                          : 'ring-gray-400'
+                      }`}
                   />
                 </div>
               </div>
@@ -157,7 +172,11 @@ function RegisterPage() {
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
                       focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100 dark:text-black
-                      ring-gray-400'`}
+                      ${
+                        invalidInput?.password || invalidInput?.confirmPassword
+                          ? 'ring-red-500 focus:outline-red-500'
+                          : 'ring-gray-400'
+                      }`}
                   />
                 </div>
               </div>
@@ -183,7 +202,11 @@ function RegisterPage() {
                     }}
                     className={`block w-75 h-10 rounded-md py-1.5 px-2 ring-1 ring-inset 
                       focus:text-gray-800 focus:outline-emerald-500 xl:h-11 xl:w-85 bg-white dark:bg-gray-100 dark:text-black
-                      ring-gray-400'`}
+                      ${
+                        invalidInput?.confirmPassword
+                          ? 'ring-red-500 focus:outline-red-500'
+                          : 'ring-gray-400'
+                      }`}
                   />
                 </div>
               </div>
