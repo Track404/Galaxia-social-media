@@ -17,7 +17,7 @@ import { createFollow, getFollowPairs } from '../api/follow';
 import { createComment } from '../api/comment';
 import { useQueryClient } from '@tanstack/react-query';
 import basicImage from '../assets/loginSvg.svg';
-
+import LoadingPostPage from './LoadingPages/LoadingPostPage';
 function PostPage() {
   const userToken = useContext(AuthContext);
   const [commentInfo, setCommentInfo] = useState({
@@ -30,13 +30,13 @@ function PostPage() {
   const [showAlertSuccessFollow, setShowAlertSuccessFollow] = useState(false);
   const [showAlertError, setShowAlertError] = useState(false);
   const queryClient = useQueryClient();
-  const { data: dataUser } = useQuery({
+  const { data: dataUser, isLoading: loadingUser } = useQuery({
     queryKey: ['user', userToken],
     queryFn: getUniqueUser,
     enabled: !!userToken,
   });
   const { id } = useParams();
-  const { data: dataPost } = useQuery({
+  const { data: dataPost, isLoading: loadingPost } = useQuery({
     queryKey: ['uniquePost', id],
     queryFn: getUniquePostById,
     keepPreviousData: true,
@@ -112,6 +112,10 @@ function PostPage() {
       followerId: userToken,
     });
   };
+
+  if (loadingUser || loadingPost) {
+    return <LoadingPostPage />;
+  }
   return (
     <div className="flex relative ">
       <Border />
