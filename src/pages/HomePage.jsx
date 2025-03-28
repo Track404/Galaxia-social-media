@@ -10,6 +10,7 @@ import SuccessAlert from '../components/SuccessAlert';
 import ErrorAlert from '../components/ErrorAlert';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
+import basicImage from '../assets/loginSvg.svg';
 function HomePage() {
   const userToken = useContext(AuthContext);
   const [postInfo, setPostInfo] = useState({
@@ -75,7 +76,10 @@ function HomePage() {
   return (
     <div className="flex relative ">
       <Border />
-      <Navbar pageName="Home" image={dataUser?.data.user.imageUrl} />
+      <Navbar
+        pageName="Home"
+        image={dataUser?.data.user.imageUrl || basicImage}
+      />
       <SuccessAlert
         isVisible={showAlertSuccess}
         message={'Post has been created !'}
@@ -90,7 +94,7 @@ function HomePage() {
         </h2>
         <div className=" flex items-center gap-3 shadow-sm  p-3 border-b-1">
           <img
-            src={dataUser?.data.user.imageUrl}
+            src={dataUser?.data.user.imageUrl || basicImage}
             className="border-1  mb-20 rounded-full hover:border-emerald-400"
             width="40"
             alt=""

@@ -8,6 +8,7 @@ import { AuthContext } from '../context/authContext';
 import { useQuery } from '@tanstack/react-query';
 import { getLikeOnComment } from '../api/like';
 import { useEffect } from 'react';
+import basicImage from '../assets/loginSvg.svg';
 import { useQueryClient } from '@tanstack/react-query';
 function Comment({ id, content, date, name, image, like }) {
   const userToken = useContext(AuthContext);
@@ -79,10 +80,10 @@ function Comment({ id, content, date, name, image, like }) {
     setLikeId(dataLike?.like.likeId);
   }, [dataLike]);
   return (
-    <div className=" flex items-center gap-3 shadow-sm  white p-3 relative">
+    <div className=" flex items-center gap-3 shadow-sm hover:shadow-md white p-3 cursor-default relative">
       <div className="flex items-start gap-2">
         <img
-          src={image}
+          src={image || basicImage}
           className="border-1  mb-20 rounded-full hover:border-emerald-400"
           width="40"
           alt=""

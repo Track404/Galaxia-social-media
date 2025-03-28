@@ -2,7 +2,6 @@ import { House } from 'lucide-react';
 import { Mail } from 'lucide-react';
 import { User } from 'lucide-react';
 import { SendHorizonal } from 'lucide-react';
-import { Ellipsis } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
@@ -10,6 +9,7 @@ import DialogNewPost from './DialogNewPost';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { LogoutUser } from '../api/auth';
+import basicImage from '../assets/loginSvg.svg';
 function Navbar({ pageName, image }) {
   const userToken = useContext(AuthContext);
   const queryClient = useQueryClient();
@@ -152,7 +152,7 @@ function Navbar({ pageName, image }) {
             className="flex gap-3 items-center hover:text-emerald-500   "
           >
             <img
-              src={image}
+              src={image || basicImage}
               className="border-1   bg-white  rounded-full hover:border-emerald-400  hover:scale-100 md:hover:scale-130 md:scale-120 active:scale-110 md:active:scale-120 xl:active:scale-120 xl:hover:scale-120"
               width="50"
               alt=""

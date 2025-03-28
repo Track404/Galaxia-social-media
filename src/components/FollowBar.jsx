@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getRandomUsers } from '../api/user';
 import { useState } from 'react';
 import { getSearchUsers } from '../api/user';
-
+import basicImage from '../assets/loginSvg.svg';
 function FollowBar() {
   const userToken = 23;
   const [searchTerm, setSearchTerm] = useState('');
@@ -80,7 +80,7 @@ function FollowBar() {
             <UserFollow
               key={user.id}
               id={user.id}
-              image={user.imageUrl}
+              image={user.imageUrl || basicImage}
               name={user.name}
             />
           ))}
@@ -122,7 +122,7 @@ function FollowBar() {
             <UserFollow
               key={user.id}
               id={user.id}
-              image={user.imageUrl}
+              image={user.imageUrl || basicImage}
               name={user.name}
             />
           ))}

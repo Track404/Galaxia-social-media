@@ -6,10 +6,12 @@ import { AuthContext } from '../context/authContext';
 import { createFollow } from '../api/follow';
 import { useQuery } from '@tanstack/react-query';
 import { getFollowPairs } from '../api/follow';
+import basicImage from '../assets/loginSvg.svg';
 import SuccessAlert from './SuccessAlert';
 function UserFollow({ id, name, image }) {
   const userToken = useContext(AuthContext);
   const [followDisabled, setFollowDisabled] = useState(false);
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const navigate = useNavigate();
   const { data: dataFollowing } = useQuery({
     queryKey: ['follow', userToken, id],
@@ -25,6 +27,8 @@ function UserFollow({ id, name, image }) {
     onSuccess: () => {
       console.log('success');
       setFollowDisabled(true);
+      setShowAlertSuccess(true);
+      setTimeout(() => setShowAlertSuccess(false), 5000);
     },
   });
 
@@ -38,11 +42,20 @@ function UserFollow({ id, name, image }) {
 
   return (
     <>
+      <SuccessAlert
+        isVisible={showAlertSuccess}
+        message={`You now follow ${name}!`}
+      />
       <div
         onClick={() => navigate(`/profile/${id}`)}
         className="flex items-center justify-between gap-2 p-2  hover:bg-emerald-100 "
       >
-        <img src={image} className="border-1 rounded-full " width="40" alt="" />
+        <img
+          src={image || basicImage}
+          className="border-1 rounded-full "
+          width="40"
+          alt=""
+        />
         <p>{name}</p>
         <form
           onSubmit={(e) => {

@@ -6,20 +6,18 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getUniquePostById } from '../api/post';
 import { getUniqueUser } from '../api/user';
-import { MessageCircle, Heart } from 'lucide-react';
 import { useMutation } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
-import { format } from 'date-fns';
 import { useState } from 'react';
 import SuccessAlert from '../components/SuccessAlert';
 import ErrorAlert from '../components/ErrorAlert';
 import Post from '../components/Post';
 import { createFollow, getFollowPairs } from '../api/follow';
-
 import { createComment } from '../api/comment';
 import { useQueryClient } from '@tanstack/react-query';
-import { div } from 'framer-motion/client';
+import basicImage from '../assets/loginSvg.svg';
+
 function PostPage() {
   const userToken = useContext(AuthContext);
   const [commentInfo, setCommentInfo] = useState({
@@ -29,6 +27,7 @@ function PostPage() {
   const [followDisabled, setFollowDisabled] = useState(false);
   const [validationErrors, setValidationErrors] = useState(null);
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+  const [showAlertSuccessFollow, setShowAlertSuccessFollow] = useState(false);
   const [showAlertError, setShowAlertError] = useState(false);
   const queryClient = useQueryClient();
   const { data: dataUser } = useQuery({
@@ -96,6 +95,9 @@ function PostPage() {
     onSuccess: () => {
       console.log('success follow');
       setFollowDisabled(true);
+      setShowAlertSuccessFollow(true);
+
+      setTimeout(() => setShowAlertSuccessFollow(false), 4000);
     },
   });
 
@@ -113,10 +115,17 @@ function PostPage() {
   return (
     <div className="flex relative ">
       <Border />
-      <Navbar pageName="Post" image={dataUser?.data.user.imageUrl} />
+      <Navbar
+        pageName="Post"
+        image={dataUser?.data.user.imageUrl || basicImage}
+      />
       <SuccessAlert
         isVisible={showAlertSuccess}
         message={'Comment has been created !'}
+      />
+      <SuccessAlert
+        isVisible={showAlertSuccessFollow}
+        message={`You now follow ${dataPost?.post.author.name}`}
       />
       <ErrorAlert
         isVisible={showAlertError}
@@ -151,48 +160,6 @@ function PostPage() {
               </div>
             </>
           )}
-          {/*<div className="flex flex-col gap-3 ">
-            <div className="flex justify-between  ">
-              <div className="flex gap-2  items-center ">
-                <img
-                  src={dataPost?.post.author.imageUrl}
-                  className="border-1  rounded-full hover:border-emerald-400"
-                  width="50"
-                  alt=""
-                />
-                <div className="flex flex-col ">
-                  <h2 className="text-lg font-medium">
-                    {dataPost?.post.author.name}
-                  </h2>
-                  <h2 className="text-gray-500 ">
-                    @{dataPost?.post.author.name}
-                  </h2>
-                </div>
-              </div>
-
-              
-            </div>
-
-            <div>
-              <div className="flex flex-col gap-2 ">
-                <p>{dataPost?.post.content}</p>
-              </div>
-              <h3 className="text-gray-500 mt-3">
-                Post on
-                {dataPost && format(dataPost?.post.createdAt, ' MMMM do')}
-              </h3>
-            </div>
-            <div className=" flex justify-end gap-6  p-1 pl-5  ">
-              <div className="flex  ">
-                <MessageCircle size="20" strokeWidth="1.5" />
-                <p>{dataPost?.post._count.Comments}</p>
-              </div>
-              <div className="flex">
-                <Heart size="20" strokeWidth="1.5" />
-                <p>{dataPost?.post._count.Likes}</p>
-              </div>
-            </div>
-          </div>*/}
         </div>
 
         <h2 className="text-2xl font-medium p-2 border-b-1 border-emerald-500">
@@ -200,7 +167,7 @@ function PostPage() {
         </h2>
         <div className=" flex items-center gap-3 shadow-sm  p-3 border-b-1">
           <img
-            src={dataUser?.data.user.imageUrl}
+            src={dataUser?.data.user.imageUrl || basicImage}
             className="border-1 x mb-20 rounded-full hover:border-emerald-400"
             width="40"
             alt=""

@@ -12,6 +12,7 @@ import { AuthContext } from '../context/authContext';
 import { useParams } from 'react-router-dom';
 import DialogUserChange from '../components/DialogUserInfo';
 import { useState } from 'react';
+import basicImage from '../assets/loginSvg.svg';
 
 function ProfilePage() {
   const userToken = useContext(AuthContext);
@@ -36,7 +37,10 @@ function ProfilePage() {
   return (
     <div className="flex  ">
       <Border />
-      <Navbar pageName="Profile" image={dataAuthUser?.data.user.imageUrl} />
+      <Navbar
+        pageName="Profile"
+        image={dataAuthUser?.data.user.imageUrl || basicImage}
+      />
       <DialogUserChange
         open={dialogOpen}
         onClose={() => {
@@ -48,7 +52,7 @@ function ProfilePage() {
         <div>
           <div className="w-full h-35 bg-emerald-200"></div>
           <img
-            src={dataUser?.data.user.imageUrl}
+            src={dataUser?.data.user.imageUrl || basicImage}
             className="border-1  absolute top-15 left-3 mb-20 rounded-full bg-white md:left-5 md:scale-120"
             width="100"
             alt=""

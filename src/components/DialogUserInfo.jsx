@@ -1,11 +1,4 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from '@mui/material';
-import rocket from '../assets/loginSvg.svg';
+import { Dialog } from '@mui/material';
 import { useState } from 'react';
 import { Pencil } from 'lucide-react';
 import { useEffect } from 'react';
@@ -15,6 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { CircleX } from 'lucide-react';
 import SuccessAlert from './SuccessAlert';
 import ErrorAlert from './ErrorAlert';
+import basicImage from '../assets/loginSvg.svg';
 export default function DialogUserChange({ open, onClose, userInfo }) {
   const [validationErrors, setValidationErrors] = useState(null);
   const [invalidInput, setInvalidInput] = useState(null);
@@ -32,7 +26,7 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
     if (userInfo?.user) {
       setUpdatedUserInfo({
         id: userInfo.user.id,
-        imageUrl: userInfo.user.imageUrl,
+        imageUrl: userInfo.user.imageUrl || basicImage,
         name: userInfo.user.name,
         email: userInfo.user.email,
       });
@@ -108,7 +102,7 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
           <form onSubmit={handleSubmit} className="flex flex-col items-center ">
             <div className="relative  hover:scale-105">
               <img
-                src={updatedUserInfo.imageUrl || rocket}
+                src={updatedUserInfo.imageUrl || basicImage}
                 className="border-1 border-emerald-400 opacity-70   rounded-full mb-2 "
                 width="100"
                 alt=""
