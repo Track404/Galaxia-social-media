@@ -8,6 +8,7 @@ import PostPage from './pages/PostPage';
 import ProtectedPage from './components/ProtectedRoute';
 import LoadingHomePage from './pages/LoadingPages/LoadingHomePage';
 import LoadingPostPage from './pages/LoadingPages/LoadingPostPage';
+import LoadingProfilePage from './pages/LoadingPages/LoadingProfilePage';
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to="/login" replace /> },
   { path: '/login', element: <LoginPage /> },
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
     path: '/loading',
     element: (
       <ProtectedPage>
-        <LoadingPostPage />
+        <LoadingProfilePage />
       </ProtectedPage>
     ),
   },
