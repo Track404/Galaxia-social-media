@@ -7,16 +7,18 @@ import { getUniqueUser } from '../api/user';
 import { getSearchUsers } from '../api/user';
 import SuccessAlert from '../components/SuccessAlert';
 import ErrorAlert from '../components/ErrorAlert';
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { AuthContext } from '../context/authContext';
 import basicImage from '../assets/loginSvg.svg';
 import UserFollow from '../components/UserFollow';
 import LoadingHomePage from './LoadingPages/LoadingHomePage';
 import UserFollowPage from '../components/UserFollowPage';
+import UserSearch from '../assets/SearchUser.svg';
 function SearchUsers() {
   const userToken = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
+  const inputRef = useRef(null);
   const { data: dataUser } = useQuery({
     queryKey: ['user', userToken],
     queryFn: getUniqueUser,
@@ -63,6 +65,7 @@ function SearchUsers() {
             className="input bg-white   px-8 w-full   py-2 border-2 border-transparent focus:outline-none focus:border-emerald-400  placeholder-gray-400  transition-all duration-300 shadow-sm "
             placeholder="Search users..."
             required=""
+            ref={inputRef}
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
@@ -132,6 +135,29 @@ function SearchUsers() {
             <p className="text-4xl font-medium w-full text-center  p-8 hover:text-emerald-400 shadow-sm">
               No User Found !
             </p>
+          )}
+          {searchTerm <= 0 && (
+            <>
+              <img src={UserSearch} alt="Find Users" />
+              <div
+                className="gap-2 justify-center flex flex-col xl:flex-row  items-center"
+                onClick={() => inputRef.current?.focus()}
+              >
+                <h1 className="text-3xl  md:text-4xl  2xl:text-5xl  font-semibold ">
+                  Find new users
+                </h1>
+
+                <button
+                  type="submit"
+                  className=" text-4xl px-5 py-1  relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20 active:scale-100"
+                >
+                  <span className="text-md">Now</span>
+                  <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                    <div className="relative h-full w-10 bg-white/20"></div>
+                  </div>
+                </button>
+              </div>
+            </>
           )}
         </div>
       </div>
