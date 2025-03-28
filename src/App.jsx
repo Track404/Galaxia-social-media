@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import PostPage from './pages/PostPage';
 import ProtectedPage from './components/ProtectedRoute';
-
+import LoadingHomePage from './pages/LoadingPages/LoadingHomePage';
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to="/login" replace /> },
   { path: '/login', element: <LoginPage /> },
@@ -32,6 +32,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedPage>
         <PostPage />
+      </ProtectedPage>
+    ),
+  },
+  {
+    path: '/loading',
+    element: (
+      <ProtectedPage>
+        <LoadingHomePage />
       </ProtectedPage>
     ),
   },
