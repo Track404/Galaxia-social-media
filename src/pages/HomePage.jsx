@@ -79,6 +79,7 @@ function HomePage() {
       <Navbar
         pageName="Home"
         image={dataUser?.data.user.imageUrl || basicImage}
+        name={dataUser?.data.user.name}
       />
       <SuccessAlert
         isVisible={showAlertSuccess}

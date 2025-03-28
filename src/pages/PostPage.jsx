@@ -118,6 +118,7 @@ function PostPage() {
       <Navbar
         pageName="Post"
         image={dataUser?.data.user.imageUrl || basicImage}
+        name={dataUser?.data.user.name}
       />
       <SuccessAlert
         isVisible={showAlertSuccess}

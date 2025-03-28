@@ -10,7 +10,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { LogoutUser } from '../api/auth';
 import basicImage from '../assets/loginSvg.svg';
-function Navbar({ pageName, image }) {
+function Navbar({ pageName, image, name }) {
   const userToken = useContext(AuthContext);
   const queryClient = useQueryClient();
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -157,7 +157,7 @@ function Navbar({ pageName, image }) {
               width="50"
               alt=""
             />
-            <h2 className="hidden xl:block text-3xl font-medium">Username</h2>
+            <h2 className="hidden xl:block text-3xl font-medium">{name}</h2>
           </div>
         </div>
       </nav>

@@ -40,6 +40,7 @@ function ProfilePage() {
       <Navbar
         pageName="Profile"
         image={dataAuthUser?.data.user.imageUrl || basicImage}
+        name={dataUser?.data.user.name}
       />
       <DialogUserChange
         open={dialogOpen}
