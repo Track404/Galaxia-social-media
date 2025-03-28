@@ -7,6 +7,7 @@ import { Navigate } from 'react-router-dom';
 import PostPage from './pages/PostPage';
 import ProtectedPage from './components/ProtectedRoute';
 import LoadingHomePage from './pages/LoadingPages/LoadingHomePage';
+import LoadingPostPage from './pages/LoadingPages/LoadingPostPage';
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to="/login" replace /> },
   { path: '/login', element: <LoginPage /> },
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
     path: '/loading',
     element: (
       <ProtectedPage>
-        <LoadingHomePage />
+        <LoadingPostPage />
       </ProtectedPage>
     ),
   },
