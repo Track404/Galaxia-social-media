@@ -129,7 +129,9 @@ function SearchUsers() {
             </div>
           )}
           {searchData && searchData?.data.users.length <= 0 && (
-            <p className="text-lg ml-4 p-2 pb-4">No User Found !</p>
+            <p className="text-4xl font-medium w-full text-center  p-8 hover:text-emerald-400 shadow-sm">
+              No User Found !
+            </p>
           )}
         </div>
       </div>

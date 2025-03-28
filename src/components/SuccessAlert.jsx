@@ -3,6 +3,7 @@ import { Alert } from '@mui/material';
 import { motion } from 'framer-motion';
 
 function SuccessAlert({ isVisible, message }) {
+  if (!isVisible) return null;
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
