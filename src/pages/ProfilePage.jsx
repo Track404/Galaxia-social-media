@@ -14,6 +14,7 @@ import DialogUserChange from '../components/DialogUserInfo';
 import { useState } from 'react';
 import basicImage from '../assets/loginSvg.svg';
 import LoadingProfilePage from './LoadingPages/LoadingProfilePage';
+import background from '../assets/profile.svg';
 
 function ProfilePage() {
   const userToken = useContext(AuthContext);
@@ -45,7 +46,7 @@ function ProfilePage() {
       <Navbar
         pageName="Profile"
         image={dataAuthUser?.data.user.imageUrl || basicImage}
-        name={dataUser?.data.user.name}
+        name={dataAuthUser?.data.user.name}
       />
       <DialogUserChange
         open={dialogOpen}
@@ -56,7 +57,10 @@ function ProfilePage() {
       />
       <div className="w-full h-screen overflow-auto shadow-xl relative ">
         <div>
-          <div className="w-full h-35 bg-emerald-200"></div>
+          <div
+            className="w-full h-35 bg-emerald-200"
+            style={{ backgroundImage: `url(${background})` }}
+          ></div>
           <img
             src={dataUser?.data.user.imageUrl || basicImage}
             className="border-1  absolute top-15 left-3 mb-20 rounded-full bg-white md:left-5 md:scale-120"
