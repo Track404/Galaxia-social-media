@@ -40,7 +40,7 @@ function UserFollow({ id, name, image }) {
     <>
       <div
         onClick={() => navigate(`/profile/${id}`)}
-        className="flex items-center justify-between gap-2 p-2 rounded-2xl hover:bg-emerald-50 dark:hover:bg-emerald-700"
+        className="flex items-center justify-between gap-2 p-2  hover:bg-emerald-100 "
       >
         <img src={image} className="border-1 rounded-full " width="40" alt="" />
         <p>{name}</p>
@@ -56,7 +56,7 @@ function UserFollow({ id, name, image }) {
             onClick={(e) => {
               e.stopPropagation();
             }} // Stop navigation when clicking the button
-            className="ml-7 w-16 xl:w-30 px-10 py-1 disabled:opacity-50  relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+            className="ml-7 w-16 xl:w-30 px-10 py-1 disabled:opacity-50  relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 active:scale-105 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
           >
             <span className="text-md">Follow</span>
             <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">

@@ -74,7 +74,7 @@ function FollowBar() {
           </svg>
         </button>
       </form>
-      <div className="bg-white  absolute z-10 top-17 w-[28vw]  rounded-2xl  ">
+      <div className="bg-white  absolute z-10 top-17 w-[28vw]  rounded-2xl shadow-xl  ">
         {searchData &&
           searchData.data.users.map((user) => (
             <UserFollow
@@ -115,7 +115,7 @@ function FollowBar() {
         )}
       </div>
 
-      <div className="bg-white  min-w-65 2xl:min-w-[20vw] max-w-full shadow-md rounded-xl p-3 text-center">
+      <div className="bg-white  min-w-65 2xl:min-w-[20vw] max-w-full shadow-md rounded-xl pt-3 pb-3  text-center">
         <h2 className="text-2xl font-medium mb-2">Who to follow</h2>
         {data &&
           data.data.user.map((user) => (
