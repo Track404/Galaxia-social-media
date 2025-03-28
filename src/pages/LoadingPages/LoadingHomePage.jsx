@@ -3,7 +3,7 @@ import LoadingNavbar from '../../components/LoadingComponents/LoadingNavbar';
 import FollowBar from '../../components/FollowBar';
 import Border from '../../components/border';
 import PostLoading from '../../components/LoadingComponents/LoadingPost';
-
+import LoadingFollowBar from '../../components/LoadingComponents/LoadingFollowBar';
 function LoadingHomePage() {
   const count = 10;
   return (
@@ -44,7 +44,7 @@ function LoadingHomePage() {
           <PostLoading key={index} />
         ))}
       </div>
-      <FollowBar />
+      <LoadingFollowBar />
       <Border />
     </div>
   );

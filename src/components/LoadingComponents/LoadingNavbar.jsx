@@ -63,7 +63,7 @@ function LoadingNavbar({ pageName }) {
         <div className="absolute bottom-5 xl:left-10  pt-3">
           <div className="flex gap-3 items-center hover:text-emerald-500   ">
             <div className="animate-pulse bg-gray-300  min-w-[50px] h-[50px] rounded-full md:scale-120  "></div>
-            <div className="hidden xl:block animate-pulse mt-2 bg-gray-300 w-40 h-6 rounded-full"></div>
+            <div className="hidden xl:block animate-pulse mt-2 bg-gray-300 w-35 2xl:w-45 h-6 rounded-full"></div>
           </div>
         </div>
       </nav>
