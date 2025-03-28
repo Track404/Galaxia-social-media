@@ -11,6 +11,7 @@ import ErrorAlert from '../components/ErrorAlert';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import basicImage from '../assets/loginSvg.svg';
+import LoadingHomePage from './LoadingPages/LoadingHomePage';
 function HomePage() {
   const userToken = useContext(AuthContext);
   const [postInfo, setPostInfo] = useState({
@@ -21,13 +22,13 @@ function HomePage() {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertError, setShowAlertError] = useState(false);
 
-  const { data: dataUser } = useQuery({
+  const { data: dataUser, isLoading: loadingUser } = useQuery({
     queryKey: ['user', userToken],
     queryFn: getUniqueUser,
     enabled: !!userToken,
   });
 
-  const { data: allPostsData } = useQuery({
+  const { data: allPostsData, isLoading: loadingAllPost } = useQuery({
     queryKey: ['allPosts'],
     queryFn: getAllPosts,
     keepPreviousData: true,
@@ -72,7 +73,9 @@ function HomePage() {
       userId: userToken,
     });
   };
-
+  if (loadingUser || loadingAllPost) {
+    return <LoadingHomePage />;
+  }
   return (
     <div className="flex relative ">
       <Border />
