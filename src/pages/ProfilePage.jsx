@@ -13,27 +13,32 @@ import { useParams } from 'react-router-dom';
 import DialogUserChange from '../components/DialogUserInfo';
 import { useState } from 'react';
 import basicImage from '../assets/loginSvg.svg';
+import LoadingProfilePage from './LoadingPages/LoadingProfilePage';
 
 function ProfilePage() {
   const userToken = useContext(AuthContext);
   const [dialogOpen, setDialogOpen] = useState(false);
   const { id } = useParams();
-  const { data: dataUser } = useQuery({
+  const { data: dataUser, isLoading: loadingUser } = useQuery({
     queryKey: ['userProfile', id],
     queryFn: getUniqueUser,
     enabled: !!id,
   });
 
-  const { data: dataAuthUser } = useQuery({
+  const { data: dataAuthUser, isLoading: loadingAuthUser } = useQuery({
     queryKey: ['user', userToken],
     queryFn: getUniqueUser,
     enabled: !!userToken,
   });
-  const { data: dataPost } = useQuery({
+  const { data: dataPost, isLoading: loadingUserPosts } = useQuery({
     queryKey: ['userPost', id],
     queryFn: getAllPostsByAuthorId,
     enabled: !!id,
   });
+
+  if (loadingUser || loadingAuthUser || loadingUserPosts) {
+    return <LoadingProfilePage />;
+  }
   return (
     <div className="flex  ">
       <Border />
