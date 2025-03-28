@@ -140,7 +140,7 @@ function PostPage() {
               content={dataPost.post.content}
               name={dataPost.post.author.name}
               date={dataPost.post.createdAt}
-              image={dataPost.post.author.imageUrl}
+              image={dataPost.post.author.imageUrl || basicImage}
               like={dataPost.post._count.Likes}
             />
           )}

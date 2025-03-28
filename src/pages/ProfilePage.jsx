@@ -112,7 +112,7 @@ function ProfilePage() {
                     content={post.content}
                     name={post.author.name}
                     date={post.createdAt}
-                    image={post.author.imageUrl}
+                    image={post.author.imageUrl || basicImage}
                     like={post._count.Likes}
                     comment={post._count.Comments}
                   />
