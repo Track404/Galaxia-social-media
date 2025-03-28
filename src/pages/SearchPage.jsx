@@ -12,6 +12,7 @@ import { AuthContext } from '../context/authContext';
 import basicImage from '../assets/loginSvg.svg';
 import UserFollow from '../components/UserFollow';
 import LoadingHomePage from './LoadingPages/LoadingHomePage';
+import UserFollowPage from '../components/UserFollowPage';
 function SearchUsers() {
   const userToken = useContext(AuthContext);
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,7 +38,7 @@ function SearchUsers() {
         name={dataUser?.data.user.name}
       />
 
-      <div className=" w-full h-screen overflow-auto shadow-xl  ">
+      <div className=" w-full h-screen  overflow-auto   ">
         <form className="form relative w-full ">
           <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1  ">
             <svg
@@ -91,10 +92,10 @@ function SearchUsers() {
             </svg>
           </button>
         </form>
-        <div className="bg-white  max-w-full     ">
+        <div className="bg-white  max-w-full  ">
           {searchData &&
             searchData.data.users.map((user) => (
-              <UserFollow
+              <UserFollowPage
                 key={user.id}
                 id={user.id}
                 image={user.imageUrl || basicImage}
@@ -102,7 +103,7 @@ function SearchUsers() {
               />
             ))}
           {searchData && searchData?.data.users.length > 0 && (
-            <div className="flex gap-2 mt-2 justify-around border-gray-300  border-t-1 p-2">
+            <div className="flex gap-2 mt-2 h-full justify-around border-gray-300   border-t-1 p-2">
               <button
                 type="submit"
                 disabled={page === 1}

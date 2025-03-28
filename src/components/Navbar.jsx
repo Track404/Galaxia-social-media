@@ -102,6 +102,9 @@ function Navbar({ pageName, image, name }) {
           </div>
           <div className="flex gap-3 items-center xl:hover:text-emerald-400  ">
             <UserSearch
+              onClick={() => {
+                navigate('/searchUsers');
+              }}
               size="35"
               strokeWidth="1.5"
               className="hover:text-emerald-400  md:scale-120 xl:scale-135"
