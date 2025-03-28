@@ -150,7 +150,7 @@ function LoginPage() {
               </div>
               <button
                 type="submit"
-                className="group/button w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                className="group/button w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 active:scale-105 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
               >
                 <span className="text-lg">Log In</span>
                 <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
@@ -160,7 +160,7 @@ function LoginPage() {
               <button
                 type="button"
                 onClick={handleClickGithub}
-                className="group/button mt-2 w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                className="group/button mt-2 w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 active:scale-105 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
               >
                 <div className="flex items-center">
                   <svg

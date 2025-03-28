@@ -102,15 +102,23 @@ function Comment({ id, content, date, name, image, like }) {
         <div
           className={
             isLike
-              ? 'text-red-600 flex gap-0.5 hover:text-red-400'
-              : 'text-white-400 flex gap-0.5 hover:text-red-400'
+              ? 'text-red-600 flex gap-0.5 hover:text-red-500'
+              : 'text-white-400 flex gap-0.5 hover:text-red-500'
           }
         >
-          <button onClick={handleClick} disabled={isButtonDisabled}>
-            <Heart size="20" strokeWidth="1.5" />
+          <button
+            onClick={handleClick}
+            disabled={isButtonDisabled}
+            className="hover:scale-105 active:scale-100"
+          >
+            <Heart
+              size="20"
+              strokeWidth="1.5"
+              fill={isLike ? 'red' : 'white'}
+            />
           </button>
 
-          <p>{like}</p>
+          <p className="w-3">{like}</p>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { AuthContext } from '../context/authContext';
 import { createFollow } from '../api/follow';
 import { useQuery } from '@tanstack/react-query';
 import { getFollowPairs } from '../api/follow';
-
+import SuccessAlert from './SuccessAlert';
 function UserFollow({ id, name, image }) {
   const userToken = useContext(AuthContext);
   const [followDisabled, setFollowDisabled] = useState(false);
