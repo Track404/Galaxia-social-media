@@ -106,7 +106,7 @@ function ProfilePage() {
               ) : null}
             </div>
             <h2 className="text-2xl font-medium p-2 border-b-1 border-emerald-500">
-              Your Posts
+              {id == userToken ? 'Your Posts' : 'Posts'}
             </h2>
             <div>
               {dataPost &&

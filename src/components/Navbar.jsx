@@ -9,6 +9,7 @@ import DialogNewPost from './DialogNewPost';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 import { LogoutUser } from '../api/auth';
+import { UserSearch } from 'lucide-react';
 import basicImage from '../assets/loginSvg.svg';
 function Navbar({ pageName, image, name }) {
   const userToken = useContext(AuthContext);
@@ -100,12 +101,14 @@ function Navbar({ pageName, image, name }) {
             <h2 className=" hidden xl:block text-2xl   font-medium">Home</h2>
           </div>
           <div className="flex gap-3 items-center xl:hover:text-emerald-400  ">
-            <Mail
+            <UserSearch
               size="35"
               strokeWidth="1.5"
               className="hover:text-emerald-400  md:scale-120 xl:scale-135"
             />
-            <h2 className="hidden xl:block text-2xl  font-medium">Messages</h2>
+            <h2 className="hidden xl:block text-2xl  font-medium">
+              Search Users
+            </h2>
           </div>
           <div
             onClick={() => {
@@ -118,7 +121,7 @@ function Navbar({ pageName, image, name }) {
               strokeWidth="1.5"
               className="hover:text-emerald-400  md:scale-120 xl:scale-135"
             />
-            <h2 className="hidden xl:block text-2xl   font-medium">Profile</h2>
+            <h2 className="hidden xl:block text-2xl font-medium">Profile</h2>
           </div>
           <div
             onClick={() => {
