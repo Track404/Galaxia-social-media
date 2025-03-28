@@ -43,7 +43,7 @@ function FollowBar() {
         </button>
         <input
           className="input bg-white  rounded-full px-8 xl:w-[20vw]  2xl:w-md  py-2 border-2 border-transparent focus:outline-none focus:border-emerald-400  placeholder-gray-400  transition-all duration-300 shadow-md"
-          placeholder="Search..."
+          placeholder="Search users..."
           required=""
           value={searchTerm}
           onChange={(e) => {
