@@ -1,5 +1,5 @@
 import Navbar from '../../components/Navbar';
-
+import LoadingNavbar from '../../components/LoadingComponents/LoadingNavbar';
 import FollowBar from '../../components/FollowBar';
 import Border from '../../components/border';
 import PostLoading from '../../components/LoadingComponents/LoadingPost';
@@ -9,7 +9,7 @@ function LoadingHomePage() {
   return (
     <div className="flex relative ">
       <Border />
-      <Navbar pageName="Home" />
+      <LoadingNavbar pageName="Home" />
 
       <div className="w-full h-screen overflow-auto shadow-xl  ">
         <h2 className="p-2 pl-4 border-b-2 bg-gray-50 h-15   border-emerald-300 text-2xl font-bold ">
