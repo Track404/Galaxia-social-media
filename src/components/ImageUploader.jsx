@@ -22,7 +22,7 @@ function ImageUploader({ setPostInfo }) {
 
   return (
     <>
-      <div classNam="max-w-md mx-auto rounded-lg overflow-hidden ">
+      <div className="">
         <div className="md:flex">
           <div className="w-full p-3">
             <div className="relative h-25 min-w-35 p-2 rounded-lg border-2 border-emerald-500 bg-gray-50 flex justify-center items-center shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
@@ -57,6 +57,7 @@ function ImageUploader({ setPostInfo }) {
                 accept="image/*"
                 className="absolute h-full w-full opacity-0 cursor-pointer z-10 "
                 type="file"
+                aria-label="Upload an image"
                 onChange={handleFileChange}
               />
             </div>

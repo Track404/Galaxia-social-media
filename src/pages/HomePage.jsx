@@ -12,11 +12,13 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import basicImage from '../assets/loginSvg.svg';
 import LoadingHomePage from './LoadingPages/LoadingHomePage';
+
 function HomePage() {
   const userToken = useContext(AuthContext);
   const [postInfo, setPostInfo] = useState({
     title: '',
     content: '',
+    image: '',
   });
   const [validationErrors, setValidationErrors] = useState(null);
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
@@ -69,6 +71,7 @@ function HomePage() {
       data: {
         title: postInfo.title,
         content: postInfo.content,
+        image: '',
       },
       userId: userToken,
     });
@@ -76,6 +79,7 @@ function HomePage() {
   if (loadingUser || loadingAllPost) {
     return <LoadingHomePage />;
   }
+
   return (
     <div className="flex relative ">
       <Border />
@@ -140,6 +144,7 @@ function HomePage() {
                 image={post.author.imageUrl || basicImage}
                 like={post._count.Likes}
                 comment={post._count.Comments}
+                imagePublicId={post.imagePublicId}
               />
             )
           )}

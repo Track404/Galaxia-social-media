@@ -146,6 +146,7 @@ function PostPage() {
               date={dataPost.post.createdAt}
               image={dataPost.post.author.imageUrl || basicImage}
               like={dataPost.post._count.Likes}
+              imagePublicId={dataPost.post.imagePublicId}
             />
           )}
           {userToken !== dataPost?.post.author.id && (
