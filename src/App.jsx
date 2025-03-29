@@ -1,6 +1,6 @@
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/registerPage';
 import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
