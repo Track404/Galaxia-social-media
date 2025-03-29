@@ -1,5 +1,4 @@
-import Border from '../../components/border';
-import { CalendarDays } from 'lucide-react';
+import Border from '../../components/Border';
 import PostLoading from '../../components/LoadingComponents/LoadingPost';
 import LoadingNavbar from '../../components/LoadingComponents/LoadingNavbar';
 import LoadingFollowBar from '../../components/LoadingComponents/LoadingFollowBar';

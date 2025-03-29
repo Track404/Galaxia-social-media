@@ -1,4 +1,4 @@
-import Border from '../../components/border';
+import Border from '../../components/Border';
 import LoadingFollowBar from '../../components/LoadingComponents/LoadingFollowBar';
 import LoadingNavbar from '../../components/LoadingComponents/LoadingNavbar';
 import PostLoading from '../../components/LoadingComponents/LoadingPost';
