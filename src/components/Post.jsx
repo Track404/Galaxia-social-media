@@ -101,9 +101,8 @@ function Post({
       >
         <img
           src={image || basicImage}
-          className="border-1  mb-20 rounded-full hover:border-emerald-400"
-          width="40"
-          alt=""
+          className=" w-[40px] h-[40px] object-cover border-1  mb-20 rounded-full hover:border-emerald-400"
+          alt="userImage"
         />
         <div>
           <div className="flex flex-col gap-2 ">

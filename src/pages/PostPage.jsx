@@ -174,9 +174,8 @@ function PostPage() {
         <div className=" flex items-center gap-3 shadow-sm  p-3 border-b-1">
           <img
             src={dataUser?.data.user.imageUrl || basicImage}
-            className="border-1 x mb-20 rounded-full hover:border-emerald-400"
-            width="40"
-            alt=""
+            className=" w-[50px] h-[50px] object-cover  border-1 x mb-20 rounded-full hover:border-emerald-400"
+            alt="User profile"
           />
           <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
             <textarea

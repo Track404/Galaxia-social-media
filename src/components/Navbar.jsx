@@ -152,16 +152,15 @@ function Navbar({ pageName, image, name }) {
         </div>
         <div className="absolute bottom-5 xl:left-10  pt-3">
           <div
-            onClick={() => {
-              setLogoutUserOpen(!LogoutUserOpen);
-            }}
-            className="flex gap-3 items-center hover:text-emerald-500   "
+            onClick={() => setLogoutUserOpen(!LogoutUserOpen)}
+            className="flex gap-3 items-center hover:text-emerald-500 cursor-pointer"
           >
             <img
               src={image || basicImage}
-              className="border-1   bg-white  rounded-full hover:border-emerald-400  hover:scale-100 md:hover:scale-130 md:scale-120 active:scale-110 md:active:scale-120 xl:active:scale-120 xl:hover:scale-120"
-              width="50"
-              alt=""
+              className="w-[50px] h-[50px] object-cover border border-gray-300 bg-white rounded-full 
+               hover:border-emerald-400 transition-transform duration-300 
+               md:hover:scale-110 active:scale-105"
+              alt="Profile"
             />
             <h2 className="hidden xl:block text-3xl font-medium">{name}</h2>
           </div>

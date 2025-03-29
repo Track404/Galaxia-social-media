@@ -14,6 +14,7 @@ function RegisterPage() {
     email: '',
     password: '',
     confirmPassword: '',
+    image: '',
   });
   const [validationErrors, setValidationErrors] = useState(null);
   const [invalidInput, setInvalidInput] = useState(null);
@@ -67,6 +68,7 @@ function RegisterPage() {
         email: userInfo.email,
         password: userInfo.password,
         confirmPassword: userInfo.confirmPassword,
+        image: userInfo.image,
       },
     });
   };
@@ -102,7 +104,7 @@ function RegisterPage() {
               onSubmit={handleSubmit}
               className="flex flex-col items-center "
             >
-              <ImageUploaderRegister />
+              <ImageUploaderRegister setPostInfo={setUserInfo} />
               <div>
                 <label
                   htmlFor="username"

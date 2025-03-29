@@ -63,8 +63,7 @@ function ProfilePage() {
           ></div>
           <img
             src={dataUser?.data.user.imageUrl || basicImage}
-            className="border-1  absolute top-15 left-3 mb-20 rounded-full bg-white md:left-5 md:scale-120"
-            width="100"
+            className=" w-[100px] h-[100px] object-cover border-1  absolute top-15 left-3 mb-20 rounded-full bg-white md:left-5 md:scale-120"
             alt=""
           />
           <div className=" ">

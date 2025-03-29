@@ -52,9 +52,8 @@ function UserFollow({ id, name, image }) {
       >
         <img
           src={image || basicImage}
-          className="border-1 rounded-full "
-          width="40"
-          alt=""
+          className=" w-[40px] h-[40px] object-cover border-1 rounded-full "
+          alt="userImage"
         />
         <p>{name}</p>
         <form

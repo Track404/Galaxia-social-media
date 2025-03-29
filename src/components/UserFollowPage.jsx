@@ -52,8 +52,7 @@ function UserFollowPage({ id, name, image }) {
       >
         <img
           src={image || basicImage}
-          className="border-1 rounded-full w-10 h-10 md:w-18 md:h-18 "
-          width="60"
+          className=" object-cover border-1 rounded-full w-10 h-10 md:w-18 md:h-18 "
           alt=""
         />
         <p className="text-sm md:text-lg font-medium">{name}</p>

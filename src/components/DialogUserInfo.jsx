@@ -103,9 +103,8 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
             <div className="relative  hover:scale-105">
               <img
                 src={updatedUserInfo.imageUrl || basicImage}
-                className="border-1 border-emerald-400 opacity-70   rounded-full mb-2 "
-                width="100"
-                alt=""
+                className=" w-[100px] h-[100px] object-cover border-1 border-emerald-400 opacity-70   rounded-full mb-2 "
+                alt="userImage"
               />
               <Pencil
                 className="absolute top-8 left-8"
