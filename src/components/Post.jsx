@@ -94,7 +94,7 @@ function Post({
         onClick={() => {
           navigate(`/post/${id}`);
         }}
-        className="flex items-start gap-2 w-full"
+        className="flex items-start gap-2 w-full mb-8"
       >
         <img
           src={image || basicImage}
