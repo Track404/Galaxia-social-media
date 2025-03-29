@@ -9,13 +9,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getLikeOnComment } from '../api/like';
 import { useEffect } from 'react';
 import basicImage from '../assets/loginSvg.svg';
-import { useQueryClient } from '@tanstack/react-query';
 function Comment({ id, content, date, name, image, like }) {
   const userToken = useContext(AuthContext);
   const [isLike, setIsLike] = useState(null);
   const [likeId, setLikeId] = useState(null);
   const [isDisabled, setIsDisabled] = useState(null);
-  const queryClient = useQueryClient();
 
   const { data: dataLike } = useQuery({
     queryKey: ['likeComment', userToken, id],
@@ -34,7 +32,6 @@ function Comment({ id, content, date, name, image, like }) {
         setLikeId(data.like.id);
         setIsLike(true);
         setIsDisabled(false);
-        queryClient.invalidateQueries(['uniquePost']);
       },
     });
 
@@ -48,7 +45,6 @@ function Comment({ id, content, date, name, image, like }) {
         console.log('success delete');
         setIsLike(false);
         setIsDisabled(false);
-        queryClient.invalidateQueries(['uniquePost']);
       },
     });
 
@@ -67,7 +63,7 @@ function Comment({ id, content, date, name, image, like }) {
           likeId: likeId,
         });
       }
-    }, 500);
+    }, 10);
   };
 
   const isButtonDisabled =
@@ -118,7 +114,7 @@ function Comment({ id, content, date, name, image, like }) {
             />
           </button>
 
-          <p className="w-3">{like}</p>
+          <p className="w-3">{isLike ? like + 1 : like}</p>
         </div>
       </div>
     </div>

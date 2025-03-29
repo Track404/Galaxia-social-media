@@ -9,7 +9,6 @@ import { AuthContext } from '../context/authContext';
 import { useQuery } from '@tanstack/react-query';
 import { getLikeOnPost } from '../api/like';
 import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 import basicImage from '../assets/loginSvg.svg';
 function Post({
   id,
@@ -25,7 +24,7 @@ function Post({
   const [isLike, setIsLike] = useState(null);
   const [likeId, setLikeId] = useState(null);
   const [isDisabled, setIsDisabled] = useState(null);
-  const queryClient = useQueryClient();
+
   const cloudinaryBaseUrl =
     'https://res.cloudinary.com/dvansj1wq/image/upload/q_auto/f_auto/';
 
@@ -46,7 +45,6 @@ function Post({
         setLikeId(data.like.id);
         setIsLike(true);
         setIsDisabled(false);
-        queryClient.invalidateQueries(['allPost']);
       },
     });
 
@@ -59,7 +57,6 @@ function Post({
       onSuccess: () => {
         setIsLike(false);
         setIsDisabled(false);
-        queryClient.invalidateQueries(['allPost']);
       },
     });
 
@@ -78,7 +75,7 @@ function Post({
           likeId: likeId,
         });
       }
-    }, 500);
+    }, 10);
   };
 
   const isButtonDisabled =
@@ -151,7 +148,7 @@ function Post({
             />
           </button>
 
-          <p className="w-3">{like}</p>
+          <p className="w-3">{isLike ? like + 1 : like}</p>
         </div>
       </div>
     </div>

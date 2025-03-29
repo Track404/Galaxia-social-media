@@ -12,6 +12,8 @@ function FollowBar() {
     queryKey: ['RandomUser'],
     queryFn: getRandomUsers,
     enabled: !!userToken,
+    staleTime: 5 * 60 * 1000, // Data stays fresh for 5 minutes (prevents refetching on component re-renders)
+    refetchInterval: 5 * 60 * 1000,
   });
   const { data: searchData } = useQuery({
     queryKey: ['users', searchTerm, page],
