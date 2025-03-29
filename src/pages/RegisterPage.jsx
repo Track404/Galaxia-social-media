@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { postUser } from '../api/user';
 import SuccessAlert from '../components/SuccessAlert';
 import ErrorAlert from '../components/ErrorAlert';
+import ImageUploaderRegister from '../components/ImageUploaderRegister';
 function RegisterPage() {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertError, setShowAlertError] = useState(false);
@@ -71,7 +72,7 @@ function RegisterPage() {
   };
   return (
     <>
-      <div className="md:flex    h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
+      <div className="md:flex h-full     md:h-screen p-2 md:p-0  bg-emerald-50 md:bg-emerald-100 relative ">
         <SuccessAlert
           isVisible={showAlertSuccess}
           message={'User successfuly created !'}
@@ -80,13 +81,13 @@ function RegisterPage() {
           isVisible={showAlertError}
           validationErrors={validationErrors}
         />
-        <div className="flex md:bg-white md:text-black  items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
+        <div className="flex md:bg-white md:text-black   items-center justify-center md:p-2 md:w-[50vw] md:shadow-2xl ">
           <div className="flex gap-1 absolute top-2 left-2">
             <h1 className="text-4xl font-medium ">Galaxia</h1>
             <h1 className="text-4xl font-medium text-emerald-400 ">Register</h1>
           </div>
 
-          <div className="flex flex-col mt-10 md:justify-center   relative">
+          <div className="flex flex-col mt-10  md:justify-center   relative">
             <img src={rocket} alt="here" width="400" className="md:hidden" />
             <div className=" hidden md:block text-center">
               <h1 className="text-7xl font-semibold xl:text-8xl">
@@ -101,6 +102,7 @@ function RegisterPage() {
               onSubmit={handleSubmit}
               className="flex flex-col items-center "
             >
+              <ImageUploaderRegister />
               <div>
                 <label
                   htmlFor="username"
@@ -210,6 +212,7 @@ function RegisterPage() {
                   />
                 </div>
               </div>
+
               <button
                 type="submit"
                 className="group/button w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
