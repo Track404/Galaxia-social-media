@@ -15,6 +15,7 @@ import LoadingHomePage from './LoadingPages/LoadingHomePage';
 import ImageUploaderHome from '../components/ImageUploaderHomePage';
 function HomePage() {
   const userToken = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [postInfo, setPostInfo] = useState({
     title: '',
     content: '',
@@ -43,6 +44,7 @@ function HomePage() {
       if (error?.data?.errors) {
         setValidationErrors(error.data.errors);
         setShowAlertError(true);
+        setIsLoading(false);
         setTimeout(() => setShowAlertError(false), 10000);
       }
     },
@@ -53,6 +55,7 @@ function HomePage() {
         image: '',
       });
       setValidationErrors(null);
+      setIsLoading(false);
       setShowAlertSuccess(true);
       setShowAlertError(false);
       setTimeout(() => setShowAlertSuccess(false), 5000);
@@ -68,6 +71,7 @@ function HomePage() {
       return;
     }
     setValidationErrors(null);
+    setIsLoading(true);
     addPostMutation({
       data: {
         title: postInfo.title,
@@ -124,7 +128,10 @@ function HomePage() {
 
             <button
               type="submit"
-              className="self-end w-16  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+              disabled={isLoading}
+              className={`self-end w-16  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md ${
+                isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-emerald-400'
+              }  backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20`}
             >
               <span className="text-md">Post</span>
               <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
