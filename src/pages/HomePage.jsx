@@ -12,7 +12,7 @@ import { useState, useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import basicImage from '../assets/loginSvg.svg';
 import LoadingHomePage from './LoadingPages/LoadingHomePage';
-
+import ImageUploaderHome from '../components/ImageUploaderHomePage';
 function HomePage() {
   const userToken = useContext(AuthContext);
   const [postInfo, setPostInfo] = useState({
@@ -50,6 +50,7 @@ function HomePage() {
       setPostInfo({
         title: '',
         content: '',
+        image: '',
       });
       setValidationErrors(null);
       setShowAlertSuccess(true);
@@ -71,7 +72,7 @@ function HomePage() {
       data: {
         title: postInfo.title,
         content: postInfo.content,
-        image: '',
+        image: postInfo.image,
       },
       userId: userToken,
     });
@@ -120,6 +121,7 @@ function HomePage() {
               className="w-full p-3 border resize-none border-gray-300  rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
               placeholder="Write something..."
             ></textarea>
+            <ImageUploaderHome setPostInfo={setPostInfo} />
 
             <button
               type="submit"
