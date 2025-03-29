@@ -5,7 +5,7 @@ import { createPost } from '../api/post';
 import { useMutation } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
-
+import ImageUploader from './ImageUploader';
 import { CircleX } from 'lucide-react';
 import SuccessAlert from '../components/SuccessAlert';
 import ErrorAlert from '../components/ErrorAlert';
@@ -19,6 +19,7 @@ export default function DialogNewPost({ open, onClose }) {
   const [postInfo, setPostInfo] = useState({
     title: '',
     content: '',
+    image: '',
   });
 
   const { mutate: addPostMutation } = useMutation({
@@ -56,6 +57,7 @@ export default function DialogNewPost({ open, onClose }) {
       data: {
         title: postInfo.title,
         content: postInfo.content,
+        image: postInfo.image,
       },
       userId: userToken,
     });
@@ -97,16 +99,18 @@ export default function DialogNewPost({ open, onClose }) {
                 className="w-full p-3 border resize-none border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-emerald-400 focus:border-emerald-400 bg-white text-gray-900 placeholder-gray-400"
                 placeholder="What's on your mind today..."
               ></textarea>
-
-              <button
-                type="submit"
-                className="self-end w-16  xl:w-30 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
-              >
-                <span className="text-md">Post</span>
-                <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
-                  <div className="relative h-full w-10 bg-white/20"></div>
-                </div>
-              </button>
+              <div className="flex justify-between items-start ">
+                <ImageUploader setPostInfo={setPostInfo} />
+                <button
+                  type="submit"
+                  className="self-end w-20  xl:w-30 md:py-2 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+                >
+                  <span className="text-md">Post</span>
+                  <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                    <div className="relative h-full w-10 bg-white/20"></div>
+                  </div>
+                </button>
+              </div>
             </form>
           </div>
         </div>

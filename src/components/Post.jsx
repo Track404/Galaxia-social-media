@@ -10,12 +10,24 @@ import { useQuery } from '@tanstack/react-query';
 import { getLikeOnPost } from '../api/like';
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-function Post({ id, content, date, name, image, like, comment = 0 }) {
+import basicImage from '../assets/loginSvg.svg';
+function Post({
+  id,
+  content,
+  date,
+  name,
+  image,
+  like,
+  comment = 0,
+  imagePublicId,
+}) {
   const userToken = useContext(AuthContext);
   const [isLike, setIsLike] = useState(null);
   const [likeId, setLikeId] = useState(null);
   const [isDisabled, setIsDisabled] = useState(null);
   const queryClient = useQueryClient();
+  const cloudinaryBaseUrl =
+    'https://res.cloudinary.com/dvansj1wq/image/upload/q_auto/f_auto/';
 
   const navigate = useNavigate();
   const { data: dataLike } = useQuery({
@@ -80,7 +92,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
   }, [dataLike]);
 
   return (
-    <div className=" flex items-center gap-3 shadow-sm  white p-3 w-full hover:shadow-md cursor-default  relative">
+    <div className=" flex items-center gap-3 shadow-sm  white p-3  w-full hover:shadow-md cursor-default  relative">
       <div
         onClick={() => {
           navigate(`/post/${id}`);
@@ -88,7 +100,7 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
         className="flex items-start gap-2 w-full"
       >
         <img
-          src={image}
+          src={image || basicImage}
           className="border-1  mb-20 rounded-full hover:border-emerald-400"
           width="40"
           alt=""
@@ -101,6 +113,13 @@ function Post({ id, content, date, name, image, like, comment = 0 }) {
             </div>
 
             <p>{content}</p>
+            {imagePublicId && (
+              <img
+                src={`${cloudinaryBaseUrl}${imagePublicId}`}
+                alt="Post"
+                className="mb-8 max-h-[60vh] border-1 rounded-xs shadow-md "
+              />
+            )}
           </div>
         </div>
       </div>

@@ -124,6 +124,7 @@ function ProfilePage() {
                     image={post.author.imageUrl || basicImage}
                     like={post._count.Likes}
                     comment={post._count.Comments}
+                    imagePublicId={post.imagePublicId}
                   />
                 ))}
             </div>
