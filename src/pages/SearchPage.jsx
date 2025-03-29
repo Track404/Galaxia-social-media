@@ -5,13 +5,9 @@ import Border from '../components/border';
 import { useQuery } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
 import { getSearchUsers } from '../api/user';
-import SuccessAlert from '../components/SuccessAlert';
-import ErrorAlert from '../components/ErrorAlert';
-import { useState, useContext, useRef } from 'react';
+import { useState, useContext, useRef, useEffect } from 'react';
 import { AuthContext } from '../context/authContext';
 import basicImage from '../assets/loginSvg.svg';
-import UserFollow from '../components/UserFollow';
-import LoadingHomePage from './LoadingPages/LoadingHomePage';
 import UserFollowPage from '../components/UserFollowPage';
 import UserSearch from '../assets/SearchUser.svg';
 function SearchUsers() {
@@ -31,6 +27,12 @@ function SearchUsers() {
     keepPreviousData: true, // Don't remove old data when fetching new page
     enabled: !!searchTerm,
   });
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus(); // Auto-focus on page load
+    }
+  }, []);
   return (
     <div className="flex relative ">
       <Border />
