@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar';
 import FollowBar from '../components/FollowBar';
-import Border from '../components/border';
+import Border from '../components/Border';
 import Comment from '../components/Comment';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';

@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar';
 import Post from '../components/Post';
 import FollowBar from '../components/FollowBar';
-import Border from '../components/border';
+import Border from '../components/Border';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
 import { getAllPosts } from '../api/post';

@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar';
 import FollowBar from '../components/FollowBar';
-import Border from '../components/border';
+import Border from '../components/Border';
 import Post from '../components/Post';
 import { useQuery } from '@tanstack/react-query';
 import { getUniqueUser } from '../api/user';
