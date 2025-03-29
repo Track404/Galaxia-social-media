@@ -42,7 +42,7 @@ function LoginPage() {
 
       setTimeout(() => {
         navigate('/home');
-      }, 3000);
+      }, 1000);
     },
   });
 
