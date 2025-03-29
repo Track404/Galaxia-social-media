@@ -179,6 +179,16 @@ function LoginPage() {
                 </div>
               </button>
               <button
+                onClick={() => {
+                  addUserMutation({
+                    data: {
+                      name: 'guestUser',
+                      email: 'guest.user@gmail.com',
+                      password: 'guestuser1234',
+                      confirmPassword: 'guestuser12"4',
+                    },
+                  });
+                }}
                 type="submit"
                 className="group/button w-[300px] mt-2 xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 active:scale-105 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
               >
