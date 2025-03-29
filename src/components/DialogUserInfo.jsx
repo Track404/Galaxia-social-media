@@ -16,6 +16,7 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertError, setShowAlertError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const queryClient = useQueryClient();
   const [updatedUserInfo, setUpdatedUserInfo] = useState({
     id: '',
@@ -33,6 +34,12 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
         name: userInfo.user.name,
         email: userInfo.user.email,
       });
+    }
+    if (
+      userInfo?.user.name === 'guestUser' &&
+      userInfo?.user.email === 'guest.user@gmail.com'
+    ) {
+      setIsDisabled(true);
     }
   }, [userInfo]);
 
@@ -173,9 +180,11 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
             </div>
             <button
               type="submit"
-              disabled={isLoading} // Disable button while loading
+              disabled={isLoading || isDisabled} // Disable button while loading
               className={`self-end w-[300px] xl:w-85 text-lg px-10 py-2  relative inline-flex items-center justify-center overflow-hidden rounded-md ${
-                isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-emerald-400'
+                isLoading || isDisabled
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-emerald-400'
               } backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20`}
             >
               {isLoading ? (
