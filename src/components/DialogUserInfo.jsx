@@ -1,6 +1,6 @@
 import { Dialog } from '@mui/material';
 import { useState } from 'react';
-import { Pencil } from 'lucide-react';
+
 import { useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { updateUser } from '../api/user';
@@ -9,17 +9,20 @@ import { CircleX } from 'lucide-react';
 import SuccessAlert from './SuccessAlert';
 import ErrorAlert from './ErrorAlert';
 import basicImage from '../assets/loginSvg.svg';
+import ImageUploaderUser from './ImageUploaderUser';
 export default function DialogUserChange({ open, onClose, userInfo }) {
   const [validationErrors, setValidationErrors] = useState(null);
   const [invalidInput, setInvalidInput] = useState(null);
   const [showAlertSuccess, setShowAlertSuccess] = useState(false);
   const [showAlertError, setShowAlertError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
   const [updatedUserInfo, setUpdatedUserInfo] = useState({
     id: '',
     imageUrl: '',
     name: '',
     email: '',
+    image: '',
   });
 
   useEffect(() => {
@@ -44,6 +47,7 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
         });
         setInvalidInput(newErrors);
         setShowAlertError(true);
+        setIsLoading(false);
         setTimeout(() => setShowAlertError(false), 10000);
         console.log(invalidInput); // Store errors in state
       }
@@ -53,6 +57,7 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
       setInvalidInput(null);
       setShowAlertSuccess(true);
       setShowAlertError(false);
+      setIsLoading(false);
       setTimeout(() => setShowAlertSuccess(false), 5000);
       queryClient.invalidateQueries(['user']);
       onClose();
@@ -66,12 +71,15 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
       console.log('Update user info is incomplete');
       return;
     }
+    setIsLoading(true);
     setValidationErrors(null);
     setInvalidInput(null);
     addUpdateUserMutation({
       data: {
         name: updatedUserInfo.name,
         email: updatedUserInfo.email,
+        imageUrl: updatedUserInfo.imageUrl,
+        image: updatedUserInfo.image,
       },
       userId: updatedUserInfo.id,
     });
@@ -100,18 +108,10 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
             Change User Info
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col items-center ">
-            <div className="relative  hover:scale-105">
-              <img
-                src={updatedUserInfo.imageUrl || basicImage}
-                className=" w-[100px] h-[100px] object-cover border-1 border-emerald-400 opacity-70   rounded-full mb-2 "
-                alt="userImage"
-              />
-              <Pencil
-                className="absolute top-8 left-8"
-                size="35"
-                strokeWidth="2"
-              />
-            </div>
+            <ImageUploaderUser
+              setPostInfo={setUpdatedUserInfo}
+              imageUrl={updatedUserInfo.imageUrl}
+            />
 
             <div>
               <label
@@ -171,12 +171,18 @@ export default function DialogUserChange({ open, onClose, userInfo }) {
                 />
               </div>
             </div>
-
             <button
               type="submit"
-              className="group/button w-[300px] xl:w-85 relative inline-flex items-center justify-center overflow-hidden rounded-md bg-emerald-400 backdrop-blur-lg px-10 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20"
+              disabled={isLoading} // Disable button while loading
+              className={`self-end w-[300px] xl:w-85 text-lg px-10 py-2  relative inline-flex items-center justify-center overflow-hidden rounded-md ${
+                isLoading ? 'bg-gray-400 cursor-not-allowed' : 'bg-emerald-400'
+              } backdrop-blur-lg text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-600/50 border border-white/20`}
             >
-              <span className="text-lg">Confirm</span>
+              {isLoading ? (
+                <span>Loading...</span> // Show loading text or spinner
+              ) : (
+                <span className="text-md">Confirm Change</span>
+              )}
               <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
                 <div className="relative h-full w-10 bg-white/20"></div>
               </div>
