@@ -1,4 +1,5 @@
 import axiosInstance from './axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginUser = async ({ data }) => {
   try {
@@ -21,6 +22,14 @@ export const LoginUser = async ({ data }) => {
 export const LoginUserGithub = async () => {
   try {
     const response = await axiosInstance.post(`/login/github`);
+
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token); // Store token for Safari
+    }
+
+    // Redirect to home page after successful login
+    window.location.href = 'https://galaxiasocial.netlify.app/home'; // Ensure the redirect happens in frontend
+
     return response.data;
   } catch (error) {
     if (error.response) {
