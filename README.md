@@ -21,9 +21,9 @@
 
 ## **Demo**  
 🔗 **Live Demo:** [Galaxia](https://galaxiasocial.netlify.app/login)  
-🔗 **Backend Repo:** [Galaxia-backend]([https://yourprojectlink.com](https://github.com/Track404/Galaxia-social-media-backend))  
+🔗 **Backend Repo:** [Galaxia-backend](https://github.com/Track404/Galaxia-social-media-backend)  
 📸 **Screenshots:**  
-![Galaxia Home Page](screenshot.png)  
+![Galaxia Home Page](/src/assets/screenshot.png)  
 
 ## **Installation**  
 Clone the repository and install dependencies:  
