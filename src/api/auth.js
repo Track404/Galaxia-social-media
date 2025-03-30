@@ -1,5 +1,4 @@
 import axiosInstance from './axiosInstance';
-import { useNavigate } from 'react-router-dom';
 
 export const LoginUser = async ({ data }) => {
   try {
