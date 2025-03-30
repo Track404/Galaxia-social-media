@@ -3,6 +3,11 @@ import axiosInstance from './axiosInstance';
 export const LoginUser = async ({ data }) => {
   try {
     const response = await axiosInstance.post(`/login`, data);
+
+    if (response.data.token) {
+      localStorage.setItem('token', response.data.token); // Store token for Safari
+    }
+
     return response.data;
   } catch (error) {
     if (error.response) {
@@ -28,13 +33,20 @@ export const LoginUserGithub = async () => {
 
 export async function checkUserAuthentication() {
   try {
-    // Replace '/secure-user' with the actual endpoint you want to hit
+    let headers = {};
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
     const response = await axiosInstance.get('/protected', {
       withCredentials: true,
+      headers,
     });
 
     console.log('User authenticated');
-    return response.data; // Return the user data from the response
+    return response.data;
   } catch (error) {
     if (error.response) {
       console.error('Authentication failed:', error.response.data.message);
@@ -46,8 +58,10 @@ export async function checkUserAuthentication() {
 
 export const LogoutUser = async () => {
   try {
-    const response = await axiosInstance.post(`/logout`);
-    return response.data;
+    await axiosInstance.post(`/logout`);
+    localStorage.removeItem('token'); // Remove token for Safari users
+
+    return { message: 'Logged out successfully' };
   } catch (error) {
     if (error.response) {
       throw error.response;
