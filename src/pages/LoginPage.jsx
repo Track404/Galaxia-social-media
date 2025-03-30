@@ -64,7 +64,8 @@ function LoginPage() {
   //Github Login Redirect
   const handleClickGithub = (e) => {
     e.preventDefault();
-    window.location.href = 'http://localhost:3000/login/github'; // Redirect to backend auth route
+    window.location.href =
+      'https://galaxia-social-media-backend-production.up.railway.app/login/github'; // Redirect to backend auth route
   };
   return (
     <>
