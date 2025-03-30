@@ -6,7 +6,7 @@ import { SendHorizonal } from 'lucide-react';
 function LoadingNavbar({ pageName }) {
   return (
     <>
-      <nav className="flex flex-col  items-center align-middle bg-emerald-100  h-screen p-2 pl-4 pr-4 lg:pl-8 lg:pr-8 min-w-[10vw] max-w-[25vw] xl:min-w-[20vw] drop-shadow-sm  ">
+      <nav className="flex flex-col  items-center relative align-middle bg-emerald-100  h-screen p-2 pl-4 pr-4 lg:pl-8 lg:pr-8 min-w-[10vw] max-w-[25vw] xl:min-w-[20vw] drop-shadow-sm  ">
         <div className="flex flex-col xl:flex-row xl:gap-1 items-center   mb-6 xl:mb-10 ">
           <h1 className="text-sm  md:text-2xl xl:text-4xl 2xl:text-5xl  font-semibold ">
             Galaxia
